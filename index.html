@@ -1,26 +1,34 @@
 <!DOCTYPE html>
 <html>
-   <head>
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <base target="_top">
-      <title>AlphaSense</title>
-      
-      <!-- Favicon -->
-      <link rel="icon" type="image/png" sizes="192x192" href="https://tinypic.host/images/2024/12/13/AlphaSense.jpg">
+  <head>
+    <meta charset="UTF-8">
+    <!-- Viewport สำหรับ mobile -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <!-- Meta Tags สำหรับ iOS Web App -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    
+    <!-- Optional: Manifest สำหรับ Android -->
+    <link rel="manifest" href="/manifest.json">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="192x192" href="https://tinypic.host/images/2024/12/13/AlphaSense.jpg">
+    
+    <!-- Apple Touch Icon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="https://tinypic.host/images/2024/12/13/AlphaSense.jpg">
+    
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#ffffff">
 
-      <!-- Apple Touch Icon -->
-      <link rel="apple-touch-icon" sizes="180x180" href="https://tinypic.host/images/2024/12/13/AlphaSense.jpg">
-
-      <!-- Manifest (สำหรับ Android และ iOS ที่รองรับ) -->
-      <link rel="manifest" href="/manifest.json">
-
-      <!-- Theme Color -->
-      <meta name="theme-color" content="#ffffff">
-   </head>
-   <body>
-      <iframe 
-         style="position: absolute;top: 0;left: 0;width: 100%;height: 100%;border: 0;" 
-         src="https://script.google.com/macros/s/AKfycbwYAtX35Nb6K_ZtNfRecXe9DbyWSQGfNUZwAP7YZMJ_bnOVgYVtokCltCpCiEyABSCX/exec">
-      </iframe>
-   </body>
+    <title>AlphaSense</title>
+    
+    <!-- คุณอาจลบ <base target="_top"> ออกได้สำหรับ Web App -->
+  </head>
+  <body style="margin: 0;">
+    <iframe 
+      style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;" 
+      src="https://script.google.com/macros/s/AKfycbwYAtX35Nb6K_ZtNfRecXe9DbyWSQGfNUZwAP7YZMJ_bnOVgYVtokCltCpCiEyABSCX/exec">
+    </iframe>
+  </body>
 </html>
