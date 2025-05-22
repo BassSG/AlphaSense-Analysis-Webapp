@@ -1,7 +1,7 @@
 {
   "name": "APS Trading",
   "short_name": "APS Trading",
-  "description": "Helpful Assistant AI",
+  "description": "AI-Trading",
   "start_url": "https://script.google.com/macros/s/AKfycbyzYmLZRz3PI4IAuKRSpqSHCp-UsZvaNy9Jilcmkpd6vGPqoU2UkstQbk8jeSVx3IVu/exec",
   "display": "standalone",
   "background_color": "#ffffff",
