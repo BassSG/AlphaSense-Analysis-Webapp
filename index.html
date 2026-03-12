@@ -2,125 +2,326 @@
 <html lang="th">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, 
+          maximum-scale=1.0, user-scalable=no">
     <base target="_top">
     <title>APS-Trading</title>
 
-    <!-- ส่วน icon สำหรับแท็บและ shortcut (ไม่แสดงในเนื้อหาของหน้าเว็บ) -->
-    <link rel="icon" type="image/png" href="https://s21-kling.klingai.com/kimg/EMXN1y8qeAoGdXBsb2FkEg55bGFiLXN0dW50LXNncBpec2UvYWlfcG9ydGFsX3NncF9tbXVfaW1nMmltZ19haXdlYl92MTVfcG9ydHJhaXQvY2ZmNGJjNjUtMDAyZS00OTRhLWEwNWMtNmU3YzI5NTBhYzYzX2ltYWdlLnBuZw:360x360.webp?x-kcdn-pid=112372">
-    <link rel="apple-touch-icon" href="https://s21-kling.klingai.com/kimg/EMXN1y8qeAoGdXBsb2FkEg55bGFiLXN0dW50LXNncBpec2UvYWlfcG9ydGFsX3NncF9tbXVfaW1nMmltZ19haXdlYl92MTVfcG9ydHJhaXQvY2ZmNGJjNjUtMDAyZS00OTRhLWEwNWMtNmU3YzI5NTBhYzYzX2ltYWdlLnBuZw:360x360.webp?x-kcdn-pid=112372">
+    <link rel="icon" type="image/png" 
+      href="https://s21-kling.klingai.com/kimg/EMXN1y8qeAoGdXBsb2FkEg55bGFiLXN0dW50LXNncBpec2UvYWlfcG9ydGFsX3NncF9tbXVfaW1nMmltZ19haXdlYl92MTVfcG9ydHJhaXQvY2ZmNGJjNjUtMDAyZS00OTRhLWEwNWMtNmU3YzI5NTBhYzYzX2ltYWdlLnBuZw:360x360.webp?x-kcdn-pid=112372">
+    <link rel="apple-touch-icon" 
+      href="https://s21-kling.klingai.com/kimg/EMXN1y8qeAoGdXBsb2FkEg55bGFiLXN0dW50LXNncBpec2UvYWlfcG9ydGFsX3NncF9tbXVfaW1nMmltZ19haXdlYl92MTVfcG9ydHJhaXQvY2ZmNGJjNjUtMDAyZS00OTRhLWEwNWMtNmU3YzI5NTBhYzYzX2ltYWdlLnBuZw:360x360.webp?x-kcdn-pid=112372">
     <link rel="manifest" href="manifest.json">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="Trip-Planner">
-    <meta name="theme-color" content="#4285f4">
-    <meta name="mobile-web-app-capable" content="yes">
+
     <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="APS Trading">
+    <meta name="theme-color" content="#08111f">
+
     <style>
-        /* Reset CSS */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
         html, body {
             height: 100%;
             width: 100%;
             overflow: hidden;
             position: fixed;
-            touch-action: manipulation;
+            background-color: #08111f;
+            font-family: -apple-system, BlinkMacSystemFont, 
+                         'Segoe UI', Roboto, sans-serif;
             -webkit-tap-highlight-color: transparent;
             -webkit-touch-callout: none;
-            -webkit-user-select: none;
-            user-select: none;
-            background-color: #f5f5f5;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, 
-                         Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-        }
-        
-        /* โลโก้เว็บไซต์ที่แสดงในหน้าเว็บ */
-        
-        #app-container {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: 0;
-            z-index: 1;
-            overflow: hidden;
         }
 
-        /* Default: มือถือ */
-        .app-splash {
+        /* ============ SPLASH ============ */
+        #splash-screen {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: #566573;
-            background-image: url("https://s21-kling.klingai.com/kimg/EMXN1y8qeAoGdXBsb2FkEg55bGFiLXN0dW50LXNncBpec2UvYWlfcG9ydGFsX3NncF9tbXVfaW1nMmltZ19haXdlYl92MTVfcG9ydHJhaXQvMzYxM2ViMTgtOWJlYi00Nzc3LWFjMTgtMTFhMTA2MjI4ZjliX2ltYWdlLnBuZw:360x640.webp?x-kcdn-pid=112372");
-            background-repeat: no-repeat;
-            background-position: center center;
-            background-size: cover;
+            inset: 0;
             z-index: 9999;
-            transition: opacity 0.5s ease-out;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 24px;
+            background:
+                radial-gradient(circle at top left,
+                    rgba(59,130,246,.18), transparent 30%),
+                radial-gradient(circle at bottom right,
+                    rgba(34,211,238,.12), transparent 28%),
+                linear-gradient(180deg, #07101d 0%, #0b1524 100%);
+            transition: opacity 0.5s ease;
         }
 
-        /* Desktop: จอกว้าง >= 768px */
-        @media (min-width: 768px) {
-            .app-splash {
-                background-image: url("https://s21-kling.klingai.com/kimg/EMXN1y8qeAoGdXBsb2FkEg55bGFiLXN0dW50LXNncBpec2UvYWlfcG9ydGFsX3NncF9tbXVfaW1nMmltZ19haXdlYl92MTVfcG9ydHJhaXQvNDFhOGJhNWMtOTQ1Ny00MmI2LTg1NjQtMzVhMmVhMjQ3ZDZlX2ltYWdlLnBuZw:720x405.webp?x-kcdn-pid=112372");
+        #splash-screen.fade-out {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* Logo */
+        .splash-logo {
+            width: 88px;
+            height: 88px;
+            border-radius: 26px;
+            background: linear-gradient(135deg, #3b82f6, #22d3ee);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            font-weight: 900;
+            color: #fff;
+            animation: logo-pulse 2s ease-in-out infinite;
+            box-shadow:
+                0 0 0 1px rgba(59,130,246,.3),
+                0 20px 60px rgba(59,130,246,.4);
+        }
+
+        @keyframes logo-pulse {
+            0%, 100% {
+                box-shadow:
+                    0 0 0 1px rgba(59,130,246,.3),
+                    0 20px 60px rgba(59,130,246,.4);
+            }
+            50% {
+                box-shadow:
+                    0 0 0 1px rgba(59,130,246,.5),
+                    0 20px 80px rgba(59,130,246,.6),
+                    0 0 120px rgba(34,211,238,.25);
             }
         }
 
+        /* Title */
+        .splash-title h1 {
+            font-size: 26px;
+            font-weight: 900;
+            letter-spacing: -0.02em;
+            margin-bottom: 6px;
+            text-align: center;
+            background: linear-gradient(135deg, #fff, #93c5fd);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .splash-title p {
+            font-size: 13px;
+            color: #7e93b6;
+            text-align: center;
+            letter-spacing: 0.04em;
+        }
+
+        /* Spinner */
+        .splash-ring {
+            width: 52px;
+            height: 52px;
+        }
+
+        .splash-ring svg {
+            width: 52px;
+            height: 52px;
+            animation: spin 1.2s linear infinite;
+        }
+
+        .splash-ring .track {
+            fill: none;
+            stroke: rgba(255,255,255,.07);
+            stroke-width: 4;
+        }
+
+        .splash-ring .fill {
+            fill: none;
+            stroke-width: 4;
+            stroke-linecap: round;
+            stroke-dasharray: 130;
+            stroke-dashoffset: 38;
+            stroke: url(#splashGrad);
+            filter: drop-shadow(0 0 5px rgba(59,130,246,.7));
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Dots */
+        .splash-dots {
+            display: flex;
+            gap: 6px;
+            justify-content: center;
+            margin-top: 4px;
+        }
+
+        .splash-dots span {
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: #3b82f6;
+            animation: bdot 0.9s ease-in-out infinite;
+        }
+
+        .splash-dots span:nth-child(2) { animation-delay: .15s; }
+        .splash-dots span:nth-child(3) { animation-delay: .30s; }
+
+        @keyframes bdot {
+            0%, 80%, 100% { transform: translateY(0); opacity: .35; }
+            40%            { transform: translateY(-7px); opacity: 1; }
+        }
+
+        /* Progress */
+        .splash-progress {
+            width: 180px;
+            height: 3px;
+            background: rgba(255,255,255,.07);
+            border-radius: 99px;
+            overflow: hidden;
+        }
+
+        .splash-progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #3b82f6, #22d3ee);
+            border-radius: 99px;
+            box-shadow: 0 0 10px rgba(59,130,246,.5);
+            width: 0%;
+            transition: width 0.4s ease;
+        }
+
+        /* ============ IFRAME ============ */
+        #app-frame {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            z-index: 1;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        #app-frame.loaded {
+            opacity: 1;
+        }
+
+        /* Safe area iOS */
         @supports (padding: max(0px)) {
             body {
-                padding-top: max(0px, env(safe-area-inset-top));
+                padding-top:    max(0px, env(safe-area-inset-top));
                 padding-bottom: max(0px, env(safe-area-inset-bottom));
-                padding-left: max(0px, env(safe-area-inset-left));
-                padding-right: max(0px, env(safe-area-inset-right));
+                padding-left:   max(0px, env(safe-area-inset-left));
+                padding-right:  max(0px, env(safe-area-inset-right));
             }
         }
     </style>
 </head>
 <body>
 
-    <div class="app-splash" id="splash-screen"></div>
+    <!-- SVG Gradient def -->
+    <svg width="0" height="0" style="position:absolute;pointer-events:none">
+        <defs>
+            <linearGradient id="splashGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%"   stop-color="#3b82f6"/>
+                <stop offset="100%" stop-color="#22d3ee"/>
+            </linearGradient>
+        </defs>
+    </svg>
 
-    <iframe id="app-container" 
-        src="https://script.google.com/macros/s/AKfycbzZzuMx5XS-8IsmfL_rkf3Q_c1-ZKqmNA1APqC_AzL5Ig2rd71j7bGIN3QnDXTrx7RCCw/exec">
+    <!-- Splash -->
+    <div id="splash-screen">
+        <div class="splash-logo">TA</div>
+
+        <div class="splash-title">
+            <h1>APS Trading</h1>
+            <p>AI Trading Command Center</p>
+        </div>
+
+        <div class="splash-ring">
+            <svg viewBox="0 0 52 52">
+                <circle class="track" cx="26" cy="26" r="21"/>
+                <circle class="fill"  cx="26" cy="26" r="21"
+                        stroke="url(#splashGrad)"/>
+            </svg>
+        </div>
+
+        <div class="splash-dots">
+            <span></span><span></span><span></span>
+        </div>
+
+        <div class="splash-progress">
+            <div class="splash-progress-bar" id="progressBar"></div>
+        </div>
+    </div>
+
+    <!-- App -->
+    <iframe
+        id="app-frame"
+        src="https://script.google.com/macros/s/AKfycbzZzuMx5XS-8IsmfL_rkf3Q_c1-ZKqmNA1APqC_AzL5Ig2rd71j7bGIN3QnDXTrx7RCCw/exec"
+        allow="camera; microphone; geolocation"
+        loading="eager">
     </iframe>
-    
+
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            setTimeout(function() {
-                const splash = document.getElementById('splash-screen');
-                splash.style.opacity = '0';
-                setTimeout(function() {
+        const splash      = document.getElementById('splash-screen');
+        const frame       = document.getElementById('app-frame');
+        const progressBar = document.getElementById('progressBar');
+
+        // ---- Animate progress bar ----
+        let prog = 0;
+        const progInterval = setInterval(function () {
+            // เพิ่มช้าลงเรื่อยๆ ไม่ถึง 100% จนกว่า iframe จะโหลดเสร็จ
+            if (prog < 85) {
+                prog += (85 - prog) * 0.04;
+                progressBar.style.width = prog + '%';
+            }
+        }, 100);
+
+        // ---- ซ่อน splash ----
+        function hideSplash() {
+            clearInterval(progInterval);
+
+            // วิ่ง progress bar ไปถึง 100% ก่อน
+            progressBar.style.transition = 'width 0.3s ease';
+            progressBar.style.width = '100%';
+
+            setTimeout(function () {
+                // แสดง iframe
+                frame.classList.add('loaded');
+                // ซ่อน splash
+                splash.classList.add('fade-out');
+                setTimeout(function () {
                     splash.style.display = 'none';
                 }, 500);
-            }, 2000);
+            }, 350);
+        }
+
+        // ---- รอ iframe load ----
+        frame.addEventListener('load', function () {
+            hideSplash();
         });
-        
+
+        // ---- Fallback: ซ่อนอัตโนมัติใน 10 วินาที ----
+        // กันกรณี iOS Safari ไม่ยิง load event
+        const fallback = setTimeout(hideSplash, 10000);
+
+        frame.addEventListener('load', function () {
+            clearTimeout(fallback);
+        });
+
+        // ---- Service Worker ----
         if ('serviceWorker' in navigator) {
-            window.addEventListener('load', function() {
+            window.addEventListener('load', function () {
                 navigator.serviceWorker.register('/service-worker.js')
-                    .then(function(registration) {
-                        console.log('ServiceWorker registration successful');
-                    })
-                    .catch(function(err) {
-                        console.log('ServiceWorker registration failed: ', err);
+                    .catch(function (err) {
+                        console.warn('SW:', err);
                     });
             });
         }
 
-        document.body.addEventListener('touchmove', function(e) {
-            if (e.target.id !== 'app-container') {
+        // ---- ป้องกัน scroll/zoom iOS ----
+        document.body.addEventListener('touchmove', function (e) {
+            if (e.target.id !== 'app-frame') {
                 e.preventDefault();
             }
         }, { passive: false });
 
-        document.addEventListener('gesturestart', function(e) {
+        document.addEventListener('gesturestart', function (e) {
             e.preventDefault();
         });
     </script>
