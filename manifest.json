@@ -1,23 +1,24 @@
 {
   "name": "APS Trading",
   "short_name": "APS Trading",
-  "description": "AI Trading",
-  "start_url": "https://script.google.com/macros/s/AKfycbzZzuMx5XS-8IsmfL_rkf3Q_c1-ZKqmNA1APqC_AzL5Ig2rd71j7bGIN3QnDXTrx7RCCw/exec",
+  "description": "AI Trading Command Center",
+  "start_url": "/",
+  "scope": "/",
   "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#000000",
+  "background_color": "#08111f",
+  "theme_color": "#08111f",
+  "orientation": "any",
+  "prefer_related_applications": false,
   "icons": [
     {
       "src": "https://s21-kling.klingai.com/kimg/EMXN1y8qeAoGdXBsb2FkEg55bGFiLXN0dW50LXNncBpec2UvYWlfcG9ydGFsX3NncF9tbXVfaW1nMmltZ19haXdlYl92MTVfcG9ydHJhaXQvZjU4NDhmMzQtNjJiYi00OWNiLTljOGEtZmM1M2Y1OGU3OTUyX2ltYWdlLnBuZw:360x360.webp?x-kcdn-pid=112372",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/webp"
     },
     {
       "src": "https://s21-kling.klingai.com/kimg/EMXN1y8qeAoGdXBsb2FkEg55bGFiLXN0dW50LXNncBpec2UvYWlfcG9ydGFsX3NncF9tbXVfaW1nMmltZ19haXdlYl92MTVfcG9ydHJhaXQvZjU4NDhmMzQtNjJiYi00OWNiLTljOGEtZmM1M2Y1OGU3OTUyX2ltYWdlLnBuZw:360x360.webp?x-kcdn-pid=112372",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/webp"
     }
-  ],
-  "orientation": "any",
-  "prefer_related_applications": false
+  ]
 }
