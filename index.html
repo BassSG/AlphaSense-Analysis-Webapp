@@ -440,7 +440,7 @@
 
             <div class="action-row">
                 <p class="hint">กำลังรอระบบพร้อม (สูงสุด <span id="countdown">15</span> วินาที)</p>
-                <button class="open-btn" id="openNowBtn" type="button">เปิดแอปทันที</button>
+                <button class="open-btn" id="openNowBtn" type="button">เริ่มใช้งานบน GitHub</button>
             </div>
         </div>
     </main>
@@ -467,76 +467,64 @@
         const MIN_VISIBLE_MS = 1500;
         const MAX_WAIT_READY_MS = 15000;
         const STARTED_AT = Date.now();
-        let redirected = false;
         let stepIndex = 0;
         let stepTimer;
         let countdownTimer;
-        let hardRedirect;
-        let handoffDone = false;
-        let readinessConfirmed = false;
-        let statusFallbackTimer;
+        let healthCheckTimer;
+        let appReady = false;
+        let healthChecked = false;
+        let healthStartedAt = 0;
 
-        function redirectToApp() {
-            if (redirected) return;
-            redirected = true;
+        function setReadyState(message, gatewayText, pingText) {
+            if (appReady) return;
+            appReady = true;
+            healthChecked = true;
+            loadingTextEl.textContent = message;
             loadingPercentEl.textContent = '100%';
             progressBarEl.style.width = '100%';
-
-            try {
-                if (window.top && window.top !== window) {
-                    window.top.location.href = GAS_URL;
-                } else {
-                    window.location.assign(GAS_URL);
-                }
-            } catch (error) {
-                window.location.href = GAS_URL;
+            if (gatewayText) {
+                document.getElementById('metricLink').textContent = gatewayText;
             }
-
-            setTimeout(function () {
-                if (document.visibilityState === 'visible') {
-                    redirected = false;
-                    loadingTextEl.textContent = 'ไม่สามารถเปิดอัตโนมัติได้ กรุณากดปุ่มเพื่อไปต่อ';
-                    openNowBtn.textContent = 'เปิดในแท็บใหม่';
-                    openNowBtn.onclick = function () {
-                        window.open(GAS_URL, '_blank', 'noopener,noreferrer');
-                    };
-                }
-            }, 1200);
-        }
-
-        function attemptHandoff(trigger, force) {
-            if (handoffDone) return;
-            const elapsed = Date.now() - STARTED_AT;
-            const mustWaitMinVisible = !force && elapsed < MIN_VISIBLE_MS;
-            const shouldWaitReady = !force && !readinessConfirmed && trigger !== 'timeout';
-            if (shouldWaitReady) return;
-            if (mustWaitMinVisible) {
-                setTimeout(function () {
-                    attemptHandoff('min-delay', force);
-                }, MIN_VISIBLE_MS - elapsed);
-                return;
+            if (pingText) {
+                metricPingEl.textContent = pingText;
             }
-
-            handoffDone = true;
+            openNowBtn.textContent = 'พร้อมใช้งานแล้ว';
+            openNowBtn.disabled = true;
+            openNowBtn.style.opacity = '0.65';
+            openNowBtn.style.cursor = 'default';
             clearInterval(stepTimer);
             clearInterval(countdownTimer);
-            clearTimeout(hardRedirect);
-            clearTimeout(statusFallbackTimer);
-            redirectToApp();
+            clearTimeout(healthCheckTimer);
         }
 
-        function confirmReady(source) {
-            if (readinessConfirmed) return;
-            readinessConfirmed = true;
-            loadingTextEl.textContent = 'ระบบพร้อมแล้ว กำลังเปิดแดชบอร์ด...';
-            loadingPercentEl.textContent = '100%';
-            progressBarEl.style.width = '100%';
-            metricPingEl.textContent = source === 'iframe' ? 'Ready' : 'Live';
-            attemptHandoff('ready', false);
+        function runGasHealthCheck() {
+            healthStartedAt = performance.now();
+            fetch(GAS_URL, { mode: 'no-cors', cache: 'no-store' })
+                .then(function () {
+                    const elapsed = Math.max(1, Math.round(performance.now() - healthStartedAt));
+                    const delay = Date.now() - STARTED_AT;
+                    if (delay < MIN_VISIBLE_MS) {
+                        setTimeout(function () {
+                            setReadyState('ระบบพร้อมแล้ว เริ่มใช้งานบน GitHub ได้เลย', 'Online', elapsed + 'ms');
+                        }, MIN_VISIBLE_MS - delay);
+                        return;
+                    }
+                    setReadyState('ระบบพร้อมแล้ว เริ่มใช้งานบน GitHub ได้เลย', 'Online', elapsed + 'ms');
+                })
+                .catch(function () {
+                    const delay = Date.now() - STARTED_AT;
+                    if (delay < MIN_VISIBLE_MS) {
+                        setTimeout(function () {
+                            setReadyState('เปิดใช้งานโหมด GitHub สำเร็จ (เชื่อมต่อ GAS บางส่วน)', 'Partial', 'N/A');
+                        }, MIN_VISIBLE_MS - delay);
+                        return;
+                    }
+                    setReadyState('เปิดใช้งานโหมด GitHub สำเร็จ (เชื่อมต่อ GAS บางส่วน)', 'Partial', 'N/A');
+                });
         }
 
         function updateStep() {
-            if (stepIndex >= loadingSteps.length || redirected) return;
+            if (stepIndex >= loadingSteps.length || appReady) return;
             const step = loadingSteps[stepIndex];
             loadingTextEl.style.opacity = '0';
             setTimeout(function () {
@@ -550,59 +538,33 @@
         }
 
         function updateCountdown() {
-            if (redirected || handoffDone) return;
+            if (appReady) return;
             const elapsed = Date.now() - STARTED_AT;
             const remainingSec = Math.max(0, Math.ceil((MAX_WAIT_READY_MS - elapsed) / 1000));
             countdownEl.textContent = remainingSec;
             if (elapsed >= MAX_WAIT_READY_MS) {
-                loadingTextEl.textContent = 'หมดเวลารอระบบ พร้อมเปิดแอปทันที...';
-                attemptHandoff('timeout', false);
+                setReadyState('พร้อมใช้งานบน GitHub แล้ว (ข้ามการรอระบบปลายทาง)', 'Ready', 'N/A');
             }
         }
 
         openNowBtn.addEventListener('click', function () {
-            loadingTextEl.textContent = 'กำลังเปิดแอปทันที...';
-            attemptHandoff('manual', true);
+            if (appReady) return;
+            setReadyState('เปิดใช้งานทันทีบน GitHub เรียบร้อย', 'Ready', 'Manual');
         });
 
         stepTimer = setInterval(updateStep, 900);
         countdownTimer = setInterval(updateCountdown, 120);
-        hardRedirect = setTimeout(function () {
-            attemptHandoff('timeout', false);
-        }, MAX_WAIT_READY_MS + 200);
-        statusFallbackTimer = setTimeout(function () {
-            if (!readinessConfirmed) {
+        healthCheckTimer = setTimeout(function () {
+            if (!healthChecked) {
                 loadingTextEl.textContent = 'กำลังรอระบบปลายทางตอบกลับ...';
             }
         }, 4000);
-
-        const preloadFrame = document.createElement('iframe');
-        preloadFrame.style.position = 'fixed';
-        preloadFrame.style.width = '1px';
-        preloadFrame.style.height = '1px';
-        preloadFrame.style.opacity = '0';
-        preloadFrame.style.pointerEvents = 'none';
-        preloadFrame.setAttribute('aria-hidden', 'true');
-        preloadFrame.src = GAS_URL;
-        preloadFrame.addEventListener('load', function () {
-            confirmReady('iframe');
-        });
-        preloadFrame.addEventListener('error', function () {
-            loadingTextEl.textContent = 'กำลังลองเชื่อมต่ออีกครั้ง...';
-        });
-        document.body.appendChild(preloadFrame);
-
-        fetch(GAS_URL, { mode: 'no-cors', cache: 'no-store' })
-            .then(function () {
-                confirmReady('fetch');
-            })
-            .catch(function () {});
+        runGasHealthCheck();
 
         window.addEventListener('beforeunload', function () {
             clearInterval(stepTimer);
             clearInterval(countdownTimer);
-            clearTimeout(hardRedirect);
-            clearTimeout(statusFallbackTimer);
+            clearTimeout(healthCheckTimer);
         });
 
         updateStep();
