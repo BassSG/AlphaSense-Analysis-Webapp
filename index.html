@@ -7,7 +7,7 @@
 
     <link rel="icon" type="image/webp" href="https://s21-kling.klingai.com/kimg/EMXN1y8qeAoGdXBsb2FkEg55bGFiLXN0dW50LXNncBpec2UvYWlfcG9ydGFsX3NncF9tbXVfaW1nMmltZ19haXdlYl92MTVfcG9ydHJhaXQvZjU4NDhmMzQtNjJiYi00OWNiLTljOGEtZmM1M2Y1OGU3OTUyX2ltYWdlLnBuZw:360x360.webp?x-kcdn-pid=112372">
     <link rel="apple-touch-icon" href="https://s21-kling.klingai.com/kimg/EMXN1y8qeAoGdXBsb2FkEg55bGFiLXN0dW50LXNncBpec2UvYWlfcG9ydGFsX3NncF9tbXVfaW1nMmltZ19haXdlYl92MTVfcG9ydHJhaXQvZjU4NDhmMzQtNjJiYi00OWNiLTljOGEtZmM1M2Y1OGU3OTUyX2ltYWdlLnBuZw:360x360.webp?x-kcdn-pid=112372">
-    <link rel="manifest" href="manifest.json">
+    <link rel="manifest" href="manifest.json?v=3.2">
 
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
@@ -309,6 +309,57 @@
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
         }
 
+        .app-home {
+            margin-top: 14px;
+            padding-top: 14px;
+            border-top: 1px solid rgba(129, 154, 196, 0.26);
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.35s ease, transform 0.35s ease;
+        }
+
+        .app-home.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .app-home h2 {
+            font-size: 17px;
+            margin-bottom: 10px;
+            letter-spacing: -0.01em;
+        }
+
+        .home-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .home-card {
+            border: 1px solid rgba(129, 154, 196, 0.22);
+            background: rgba(14, 24, 43, 0.62);
+            border-radius: 12px;
+            padding: 10px;
+        }
+
+        .home-card strong {
+            display: block;
+            font-size: 13px;
+            margin-bottom: 2px;
+            color: #ddecff;
+        }
+
+        .home-card span {
+            font-size: 11px;
+            color: #93add8;
+        }
+
+        .home-note {
+            font-size: 12px;
+            color: #9fb7df;
+        }
+
         .version {
             position: fixed;
             bottom: 16px;
@@ -368,6 +419,10 @@
                 flex-direction: column;
                 align-items: flex-start;
             }
+
+            .home-grid {
+                grid-template-columns: 1fr;
+            }
         }
 
         @media (prefers-reduced-motion: reduce) {
@@ -393,7 +448,7 @@
         <div class="card-content">
             <div class="status-chip">
                 <span class="status-dot"></span>
-                ระบบพร้อมเชื่อมต่อ AI Engine
+                <span id="statusText">ระบบพร้อมเชื่อมต่อ AI Engine</span>
             </div>
 
             <section class="hero">
@@ -428,7 +483,7 @@
                 </div>
             </section>
 
-            <section aria-label="Loading">
+            <section aria-label="Loading" id="loadingSection">
                 <div class="loading-row">
                     <p class="loading-text" id="loadingText">กำลังเตรียมระบบสำหรับคุณ...</p>
                     <p class="loading-percent" id="loadingPercent">8%</p>
@@ -439,13 +494,36 @@
             </section>
 
             <div class="action-row">
-                <p class="hint">กำลังรอระบบพร้อม (สูงสุด <span id="countdown">15</span> วินาที)</p>
+                <p class="hint" id="hintText">กำลังรอระบบพร้อม (สูงสุด <span id="countdown">15</span> วินาที)</p>
                 <button class="open-btn" id="openNowBtn" type="button">เริ่มใช้งานบน GitHub</button>
             </div>
+
+            <section class="app-home" id="appHome" hidden>
+                <h2>APS Trading Web พร้อมใช้งาน</h2>
+                <div class="home-grid">
+                    <article class="home-card">
+                        <strong>Market Panel</strong>
+                        <span>เช็กภาพรวมตลาดและสัญญาณหลัก</span>
+                    </article>
+                    <article class="home-card">
+                        <strong>Signal Summary</strong>
+                        <span>ติดตามทิศทางและแรงซื้อขายล่าสุด</span>
+                    </article>
+                    <article class="home-card">
+                        <strong>Risk Monitor</strong>
+                        <span>มุมมองความเสี่ยงแบบเรียลไทม์</span>
+                    </article>
+                    <article class="home-card">
+                        <strong>Execution Ready</strong>
+                        <span>ระบบพร้อมใช้งานบน GitHub mode</span>
+                    </article>
+                </div>
+                <p class="home-note">ตอนนี้หน้าเว็บทำงานอยู่บน GitHub โดยตรง และไม่เด้งไปหน้า GAS แล้ว</p>
+            </section>
         </div>
     </main>
 
-    <div class="version">APS Trading v3.0</div>
+    <div class="version">APS Trading v3.2</div>
 
     <script>
         const GAS_URL = 'https://script.google.com/macros/s/AKfycbwOvl1P1rv5jwfn5Cq0nRIOxOFCSocTRf7J5gdzVCK9_6f51yWGTWRzcwl8suoMAaQ77A/exec';
@@ -456,6 +534,12 @@
         const countdownEl = document.getElementById('countdown');
         const metricPingEl = document.getElementById('metricPing');
         const openNowBtn = document.getElementById('openNowBtn');
+        const statusTextEl = document.getElementById('statusText');
+        const hintTextEl = document.getElementById('hintText');
+        const loadingSectionEl = document.getElementById('loadingSection');
+        const appHomeEl = document.getElementById('appHome');
+        const metricLinkEl = document.getElementById('metricLink');
+        const metricModelEl = document.getElementById('metricModel');
 
         const loadingSteps = [
             { text: 'กำลังยืนยันสิทธิ์ผู้ใช้งาน...', percent: 22, ping: '48ms' },
@@ -472,8 +556,26 @@
         let countdownTimer;
         let healthCheckTimer;
         let appReady = false;
+        let appEntered = false;
         let healthChecked = false;
         let healthStartedAt = 0;
+
+        function enterAppHome() {
+            if (appEntered) return;
+            appEntered = true;
+            loadingSectionEl.hidden = true;
+            statusTextEl.textContent = 'GitHub Web Mode Active';
+            hintTextEl.textContent = 'ระบบพร้อมใช้งานบน GitHub เรียบร้อย';
+            metricModelEl.textContent = 'Ready';
+            openNowBtn.textContent = 'กำลังใช้งานแล้ว';
+            openNowBtn.disabled = true;
+            openNowBtn.style.opacity = '0.65';
+            openNowBtn.style.cursor = 'default';
+            appHomeEl.hidden = false;
+            requestAnimationFrame(function () {
+                appHomeEl.classList.add('show');
+            });
+        }
 
         function setReadyState(message, gatewayText, pingText) {
             if (appReady) return;
@@ -483,18 +585,17 @@
             loadingPercentEl.textContent = '100%';
             progressBarEl.style.width = '100%';
             if (gatewayText) {
-                document.getElementById('metricLink').textContent = gatewayText;
+                metricLinkEl.textContent = gatewayText;
             }
             if (pingText) {
                 metricPingEl.textContent = pingText;
             }
-            openNowBtn.textContent = 'พร้อมใช้งานแล้ว';
-            openNowBtn.disabled = true;
-            openNowBtn.style.opacity = '0.65';
-            openNowBtn.style.cursor = 'default';
+            openNowBtn.textContent = 'เข้าสู่หน้าเว็บ';
+            hintTextEl.textContent = 'ระบบพร้อมแล้ว กำลังเปิดหน้าใช้งาน...';
             clearInterval(stepTimer);
             clearInterval(countdownTimer);
             clearTimeout(healthCheckTimer);
+            setTimeout(enterAppHome, 450);
         }
 
         function runGasHealthCheck() {
@@ -548,8 +649,10 @@
         }
 
         openNowBtn.addEventListener('click', function () {
-            if (appReady) return;
-            setReadyState('เปิดใช้งานทันทีบน GitHub เรียบร้อย', 'Ready', 'Manual');
+            if (!appReady) {
+                setReadyState('เปิดใช้งานทันทีบน GitHub เรียบร้อย', 'Ready', 'Manual');
+            }
+            enterAppHome();
         });
 
         stepTimer = setInterval(updateStep, 900);
