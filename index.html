@@ -2,383 +2,611 @@
 <html lang="th">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, 
-          maximum-scale=1.0, user-scalable=no">
-    <title>APS Trading</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>APS Trading | Launch</title>
 
-    <link rel="icon" type="image/webp" 
-      href="https://s21-kling.klingai.com/kimg/EMXN1y8qeAoGdXBsb2FkEg55bGFiLXN0dW50LXNncBpec2UvYWlfcG9ydGFsX3NncF9tbXVfaW1nMmltZ19haXdlYl92MTVfcG9ydHJhaXQvZjU4NDhmMzQtNjJiYi00OWNiLTljOGEtZmM1M2Y1OGU3OTUyX2ltYWdlLnBuZw:360x360.webp?x-kcdn-pid=112372">
-    <link rel="apple-touch-icon" 
-      href="https://s21-kling.klingai.com/kimg/EMXN1y8qeAoGdXBsb2FkEg55bGFiLXN0dW50LXNncBpec2UvYWlfcG9ydGFsX3NncF9tbXVfaW1nMmltZ19haXdlYl92MTVfcG9ydHJhaXQvZjU4NDhmMzQtNjJiYi00OWNiLTljOGEtZmM1M2Y1OGU3OTUyX2ltYWdlLnBuZw:360x360.webp?x-kcdn-pid=112372">
+    <link rel="icon" type="image/webp" href="https://s21-kling.klingai.com/kimg/EMXN1y8qeAoGdXBsb2FkEg55bGFiLXN0dW50LXNncBpec2UvYWlfcG9ydGFsX3NncF9tbXVfaW1nMmltZ19haXdlYl92MTVfcG9ydHJhaXQvZjU4NDhmMzQtNjJiYi00OWNiLTljOGEtZmM1M2Y1OGU3OTUyX2ltYWdlLnBuZw:360x360.webp?x-kcdn-pid=112372">
+    <link rel="apple-touch-icon" href="https://s21-kling.klingai.com/kimg/EMXN1y8qeAoGdXBsb2FkEg55bGFiLXN0dW50LXNncBpec2UvYWlfcG9ydGFsX3NncF9tbXVfaW1nMmltZ19haXdlYl92MTVfcG9ydHJhaXQvZjU4NDhmMzQtNjJiYi00OWNiLTljOGEtZmM1M2Y1OGU3OTUyX2ltYWdlLnBuZw:360x360.webp?x-kcdn-pid=112372">
     <link rel="manifest" href="manifest.json">
 
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="APS Trading">
-    <meta name="theme-color" content="#08111f">
+    <meta name="theme-color" content="#0b1220">
 
     <style>
-        * { margin:0; padding:0; box-sizing:border-box; }
+        :root {
+            --bg-1: #090f1d;
+            --bg-2: #101a2f;
+            --line: rgba(129, 154, 196, 0.22);
+            --text-main: #e9eefb;
+            --text-sub: #9bb0d8;
+            --accent: #4f9cff;
+            --accent-soft: #72f0ce;
+            --glass: rgba(10, 18, 33, 0.58);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
         html, body {
-            height: 100%;
             width: 100%;
+            height: 100%;
             overflow: hidden;
+        }
+
+        body {
+            font-family: "Segoe UI", "Prompt", "Noto Sans Thai", sans-serif;
+            color: var(--text-main);
             background:
-                radial-gradient(circle at 20% 20%, rgba(59,130,246,.15), transparent 40%),
-                radial-gradient(circle at 80% 80%, rgba(34,211,238,.10), transparent 40%),
-                linear-gradient(180deg, #07101d 0%, #0b1524 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+                radial-gradient(circle at 14% 22%, rgba(79, 156, 255, 0.22) 0%, transparent 42%),
+                radial-gradient(circle at 78% 80%, rgba(114, 240, 206, 0.18) 0%, transparent 36%),
+                linear-gradient(160deg, var(--bg-1) 0%, var(--bg-2) 58%, #0f182e 100%);
+            display: grid;
+            place-items: center;
+            padding: 18px;
             -webkit-tap-highlight-color: transparent;
             -webkit-touch-callout: none;
         }
 
-        /* ── Splash Container ── */
-        .splash {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 20px;
-            animation: fadeIn 0.6s cubic-bezier(.4,0,.2,1);
-            padding: 20px;
+        .ambient-grid {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            opacity: 0.24;
+            background-image:
+                linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 44px 44px;
+            mask-image: radial-gradient(circle at center, black 32%, transparent 92%);
         }
 
-        @keyframes fadeIn {
-            from { opacity:0; transform:translateY(20px); }
-            to   { opacity:1; transform:translateY(0); }
+        .orb {
+            position: fixed;
+            border-radius: 999px;
+            filter: blur(56px);
+            pointer-events: none;
         }
 
-        /* ── Logo ── */
-        .logo-wrap {
+        .orb-left {
+            width: min(48vw, 320px);
+            height: min(48vw, 320px);
+            top: 2%;
+            left: -10%;
+            background: rgba(79, 156, 255, 0.4);
+            animation: drift 10s ease-in-out infinite;
+        }
+
+        .orb-right {
+            width: min(44vw, 280px);
+            height: min(44vw, 280px);
+            bottom: -10%;
+            right: -4%;
+            background: rgba(114, 240, 206, 0.35);
+            animation: drift 12s ease-in-out infinite reverse;
+        }
+
+        .launch-card {
+            width: min(92vw, 470px);
+            border: 1px solid var(--line);
+            border-radius: 28px;
+            padding: clamp(20px, 4.2vw, 30px);
+            background: linear-gradient(160deg, rgba(255, 255, 255, 0.08), transparent 50%), var(--glass);
+            box-shadow:
+                0 28px 56px rgba(0, 0, 0, 0.42),
+                inset 0 1px 0 rgba(255, 255, 255, 0.18);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             position: relative;
-            width: 110px;
-            height: 110px;
+            overflow: hidden;
+            animation: enter 0.65s cubic-bezier(0.22, 1, 0.36, 1);
         }
 
-        /* วงแหวนหมุนรอบ logo */
-        .logo-ring {
+        .launch-card::after {
+            content: "";
             position: absolute;
-            inset: -8px;
-            border-radius: 50%;
-            animation: spin 3s linear infinite;
+            inset: -24px;
+            background: conic-gradient(
+                from 220deg,
+                transparent 0deg,
+                rgba(79, 156, 255, 0.25) 72deg,
+                transparent 140deg,
+                rgba(114, 240, 206, 0.2) 235deg,
+                transparent 330deg
+            );
+            filter: blur(36px);
+            opacity: 0.32;
+            pointer-events: none;
         }
 
-        .logo-ring svg {
+        .card-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .status-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border-radius: 999px;
+            border: 1px solid rgba(114, 240, 206, 0.44);
+            color: #bcfce9;
+            background: rgba(114, 240, 206, 0.12);
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.02em;
+            padding: 7px 12px;
+            margin-bottom: 16px;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #72f0ce;
+            box-shadow: 0 0 0 0 rgba(114, 240, 206, 0.65);
+            animation: ping 1.8s ease-out infinite;
+        }
+
+        .hero {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 18px;
+        }
+
+        .app-image-wrap {
+            position: relative;
+            width: 84px;
+            height: 84px;
+            flex: 0 0 84px;
+        }
+
+        .app-image-glow {
+            position: absolute;
+            inset: -12px;
+            border-radius: 26px;
+            background: linear-gradient(130deg, rgba(79, 156, 255, 0.8), rgba(114, 240, 206, 0.75));
+            filter: blur(16px);
+            opacity: 0.66;
+        }
+
+        .app-image {
+            position: relative;
             width: 100%;
             height: 100%;
+            object-fit: cover;
+            border-radius: 22px;
+            border: 1px solid rgba(255, 255, 255, 0.38);
+            box-shadow: 0 14px 34px rgba(0, 0, 0, 0.35);
         }
-
-        .logo-ring .r-track {
-            fill: none;
-            stroke: rgba(255,255,255,.06);
-            stroke-width: 2;
-        }
-
-        .logo-ring .r-fill {
-            fill: none;
-            stroke-width: 2;
-            stroke-linecap: round;
-            stroke-dasharray: 200;
-            stroke-dashoffset: 140;
-            stroke: url(#ringGrad);
-            filter: drop-shadow(0 0 4px rgba(59,130,246,.8));
-        }
-
-        .logo {
-            position: absolute;
-            inset: 0;
-            border-radius: 28px;
-            background: linear-gradient(135deg, #1d4ed8, #0ea5e9, #22d3ee);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 38px;
-            font-weight: 900;
-            color: #fff;
-            letter-spacing: -1px;
-            box-shadow:
-                0 0 0 1px rgba(59,130,246,.4),
-                0 20px 60px rgba(59,130,246,.5),
-                inset 0 1px 0 rgba(255,255,255,.2);
-            animation: logoPulse 2.5s ease-in-out infinite;
-        }
-
-        @keyframes logoPulse {
-            0%,100% {
-                box-shadow:
-                    0 0 0 1px rgba(59,130,246,.4),
-                    0 20px 60px rgba(59,130,246,.4),
-                    inset 0 1px 0 rgba(255,255,255,.2);
-            }
-            50% {
-                box-shadow:
-                    0 0 0 1px rgba(59,130,246,.6),
-                    0 20px 80px rgba(59,130,246,.7),
-                    0 0 120px rgba(34,211,238,.25),
-                    inset 0 1px 0 rgba(255,255,255,.2);
-            }
-        }
-
-        @keyframes spin { to { transform: rotate(360deg); } }
-
-        /* ── App Name ── */
-        .title { text-align: center; }
 
         .title h1 {
-            font-size: 30px;
-            font-weight: 900;
+            font-size: clamp(26px, 6vw, 34px);
+            line-height: 1;
             letter-spacing: -0.03em;
-            margin-bottom: 6px;
-            background: linear-gradient(135deg, #ffffff, #93c5fd, #22d3ee);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            margin-bottom: 7px;
+            color: var(--text-main);
         }
 
         .title p {
+            color: var(--text-sub);
             font-size: 13px;
-            color: #7e93b6;
-            letter-spacing: 0.05em;
-            font-weight: 500;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
         }
 
-        /* ── Tagline chip ── */
-        .tagline {
-            display: inline-flex;
+        .divider {
+            height: 1px;
+            margin: 16px 0 14px;
+            background: linear-gradient(to right, transparent, rgba(155, 176, 216, 0.58), transparent);
+        }
+
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 10px;
+            margin-bottom: 18px;
+        }
+
+        .metric {
+            border: 1px solid rgba(129, 154, 196, 0.2);
+            border-radius: 14px;
+            background: rgba(13, 22, 40, 0.5);
+            padding: 10px 10px 9px;
+            text-align: center;
+        }
+
+        .metric strong {
+            display: block;
+            color: #d9e5ff;
+            font-size: 15px;
+            margin-bottom: 2px;
+        }
+
+        .metric span {
+            font-size: 11px;
+            color: #8ea5cf;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .loading-row {
+            display: flex;
+            justify-content: space-between;
             align-items: center;
-            gap: 6px;
-            padding: 6px 14px;
-            border-radius: 999px;
-            background: rgba(59,130,246,.1);
-            border: 1px solid rgba(59,130,246,.25);
-            color: #93c5fd;
+            margin-bottom: 8px;
+            gap: 14px;
+        }
+
+        .loading-text {
+            color: #c1d2f4;
+            font-size: 13px;
+            font-weight: 600;
+            transition: opacity 0.25s ease;
+        }
+
+        .loading-percent {
+            min-width: 40px;
+            text-align: right;
+            color: #9dc8ff;
             font-size: 12px;
             font-weight: 700;
             letter-spacing: 0.04em;
         }
 
-        .tagline-dot {
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            background: #22d3ee;
-            animation: blink 1.4s ease-in-out infinite;
-        }
-
-        @keyframes blink {
-            0%,100% { opacity:1; }
-            50%      { opacity:.3; }
-        }
-
-        /* ── Spinner ── */
-        .spinner-wrap {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 14px;
-        }
-
-        .ring {
-            width: 48px;
-            height: 48px;
-        }
-
-        .ring svg {
-            width: 48px;
-            height: 48px;
-            animation: spin 1s linear infinite;
-        }
-
-        .ring .track {
-            fill: none;
-            stroke: rgba(255,255,255,.07);
-            stroke-width: 3.5;
-        }
-
-        .ring .fill {
-            fill: none;
-            stroke-width: 3.5;
-            stroke-linecap: round;
-            stroke-dasharray: 120;
-            stroke-dashoffset: 35;
-            stroke: url(#spinGrad);
-            filter: drop-shadow(0 0 5px rgba(59,130,246,.8));
-        }
-
-        /* ── Dots ── */
-        .dots {
-            display: flex;
-            gap: 6px;
-        }
-
-        .dots span {
-            width: 5px;
-            height: 5px;
-            border-radius: 50%;
-            background: #3b82f6;
-            animation: bdot 0.9s ease-in-out infinite;
-        }
-
-        .dots span:nth-child(2) { animation-delay: .15s; }
-        .dots span:nth-child(3) { animation-delay: .30s; }
-
-        @keyframes bdot {
-            0%,80%,100% { transform:translateY(0); opacity:.3; }
-            40%          { transform:translateY(-7px); opacity:1; }
-        }
-
-        /* ── Loading text ── */
-        .loading-text {
-            font-size: 12px;
-            color: #7e93b6;
-            font-weight: 600;
-            letter-spacing: 0.06em;
-        }
-
-        /* ── Progress bar ── */
-        .progress-wrap {
-            width: 160px;
-            height: 2px;
-            background: rgba(255,255,255,.07);
-            border-radius: 99px;
+        .progress-track {
+            width: 100%;
+            height: 8px;
+            border-radius: 999px;
             overflow: hidden;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(129, 154, 196, 0.22);
+            margin-bottom: 14px;
         }
 
         .progress-bar {
             height: 100%;
-            background: linear-gradient(90deg, #3b82f6, #22d3ee);
-            border-radius: 99px;
-            box-shadow: 0 0 8px rgba(59,130,246,.6);
-            animation: progressAnim 2.5s ease-out forwards;
+            width: 8%;
+            border-radius: inherit;
+            background: linear-gradient(90deg, var(--accent), var(--accent-soft));
+            box-shadow: 0 0 12px rgba(79, 156, 255, 0.68);
+            transition: width 0.4s ease;
         }
 
-        @keyframes progressAnim {
-            0%   { width: 0%; }
-            40%  { width: 55%; }
-            80%  { width: 85%; }
-            100% { width: 95%; }
+        .action-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
         }
 
-        /* ── Version badge ── */
+        .hint {
+            color: #8ca5d2;
+            font-size: 12px;
+        }
+
+        .open-btn {
+            border: 1px solid rgba(114, 240, 206, 0.44);
+            background: linear-gradient(120deg, rgba(79, 156, 255, 0.27), rgba(114, 240, 206, 0.3));
+            color: #e8fff8;
+            border-radius: 12px;
+            padding: 8px 12px;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.03em;
+            cursor: pointer;
+            transition: transform 0.18s ease, box-shadow 0.18s ease;
+        }
+
+        .open-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
+        }
+
         .version {
             position: fixed;
-            bottom: 24px;
+            bottom: 16px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(188, 203, 232, 0.48);
             font-size: 11px;
-            color: rgba(255,255,255,.2);
-            letter-spacing: 0.06em;
+            letter-spacing: 0.05em;
+            z-index: 2;
         }
 
-        /* Safe area iOS */
+        @keyframes enter {
+            from { opacity: 0; transform: translateY(24px) scale(0.985); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        @keyframes drift {
+            0%, 100% { transform: translate3d(0, 0, 0); }
+            50% { transform: translate3d(0, -12px, 0); }
+        }
+
+        @keyframes ping {
+            0% { box-shadow: 0 0 0 0 rgba(114, 240, 206, 0.55); }
+            70% { box-shadow: 0 0 0 11px rgba(114, 240, 206, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(114, 240, 206, 0); }
+        }
+
+        @media (max-width: 560px) {
+            .launch-card {
+                border-radius: 22px;
+                padding: 18px;
+            }
+
+            .hero {
+                align-items: flex-start;
+            }
+
+            .app-image-wrap {
+                width: 72px;
+                height: 72px;
+                flex-basis: 72px;
+            }
+
+            .metrics {
+                gap: 8px;
+            }
+
+            .metric strong {
+                font-size: 13px;
+            }
+
+            .metric span {
+                font-size: 10px;
+            }
+
+            .action-row {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation: none !important;
+                transition: none !important;
+            }
+        }
+
         @supports (padding: max(0px)) {
             body {
-                padding-bottom: max(0px, env(safe-area-inset-bottom));
+                padding-bottom: max(18px, env(safe-area-inset-bottom));
             }
         }
     </style>
 </head>
 <body>
+    <div class="ambient-grid" aria-hidden="true"></div>
+    <div class="orb orb-left" aria-hidden="true"></div>
+    <div class="orb orb-right" aria-hidden="true"></div>
 
-    <!-- SVG Gradients -->
-    <svg width="0" height="0" style="position:absolute;pointer-events:none">
-        <defs>
-            <linearGradient id="ringGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%"   stop-color="#3b82f6"/>
-                <stop offset="100%" stop-color="#22d3ee"/>
-            </linearGradient>
-            <linearGradient id="spinGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%"   stop-color="#3b82f6"/>
-                <stop offset="100%" stop-color="#22d3ee"/>
-            </linearGradient>
-        </defs>
-    </svg>
-
-    <!-- Splash -->
-    <div class="splash">
-
-        <!-- Logo + rotating ring -->
-        <div class="logo-wrap">
-            <div class="logo-ring">
-                <svg viewBox="0 0 126 126">
-                    <circle class="r-track" cx="63" cy="63" r="60"/>
-                    <circle class="r-fill"  cx="63" cy="63" r="60"
-                            stroke="url(#ringGrad)"/>
-                </svg>
+    <main class="launch-card" role="main" aria-live="polite">
+        <div class="card-content">
+            <div class="status-chip">
+                <span class="status-dot"></span>
+                ระบบพร้อมเชื่อมต่อ AI Engine
             </div>
-            <div class="logo">TA</div>
-        </div>
 
-        <!-- App name -->
-        <div class="title">
-            <h1>APS Trading</h1>
-            <p>AI Trading Command Center</p>
-        </div>
+            <section class="hero">
+                <div class="app-image-wrap">
+                    <div class="app-image-glow"></div>
+                    <img
+                        class="app-image"
+                        src="https://s21-kling.klingai.com/kimg/EMXN1y8qeAoGdXBsb2FkEg55bGFiLXN0dW50LXNncBpec2UvYWlfcG9ydGFsX3NncF9tbXVfaW1nMmltZ19haXdlYl92MTVfcG9ydHJhaXQvZjU4NDhmMzQtNjJiYi00OWNiLTljOGEtZmM1M2Y1OGU3OTUyX2ltYWdlLnBuZw:360x360.webp?x-kcdn-pid=112372"
+                        alt="APS Trading App"
+                    >
+                </div>
+                <div class="title">
+                    <h1>APS Trading</h1>
+                    <p>AI Trading Command Center</p>
+                </div>
+            </section>
 
-        <!-- Live chip -->
-        <div class="tagline">
-            <div class="tagline-dot"></div>
-            กำลังเชื่อมต่อระบบ AI
-        </div>
+            <div class="divider"></div>
 
-        <!-- Spinner + dots -->
-        <div class="spinner-wrap">
-            <div class="ring">
-                <svg viewBox="0 0 48 48">
-                    <circle class="track" cx="24" cy="24" r="19"/>
-                    <circle class="fill"  cx="24" cy="24" r="19"
-                            stroke="url(#spinGrad)"/>
-                </svg>
+            <section class="metrics" aria-label="System Status">
+                <div class="metric">
+                    <strong id="metricModel">3/3</strong>
+                    <span>Models</span>
+                </div>
+                <div class="metric">
+                    <strong id="metricLink">Secure</strong>
+                    <span>Gateway</span>
+                </div>
+                <div class="metric">
+                    <strong id="metricPing">42ms</strong>
+                    <span>Latency</span>
+                </div>
+            </section>
+
+            <section aria-label="Loading">
+                <div class="loading-row">
+                    <p class="loading-text" id="loadingText">กำลังเตรียมระบบสำหรับคุณ...</p>
+                    <p class="loading-percent" id="loadingPercent">8%</p>
+                </div>
+                <div class="progress-track">
+                    <div class="progress-bar" id="progressBar"></div>
+                </div>
+            </section>
+
+            <div class="action-row">
+                <p class="hint">กำลังรอระบบพร้อม (สูงสุด <span id="countdown">15</span> วินาที)</p>
+                <button class="open-btn" id="openNowBtn" type="button">เปิดแอปทันที</button>
             </div>
-            <div class="dots">
-                <span></span><span></span><span></span>
-            </div>
-            <div class="loading-text" id="loadingText">กำลังเข้าสู่ระบบ...</div>
         </div>
+    </main>
 
-        <!-- Progress -->
-        <div class="progress-wrap">
-            <div class="progress-bar"></div>
-        </div>
-
-    </div>
-
-    <!-- Version -->
-    <div class="version">APS Trading v2.0</div>
+    <div class="version">APS Trading v3.0</div>
 
     <script>
         const GAS_URL = 'https://script.google.com/macros/s/AKfycbwOvl1P1rv5jwfn5Cq0nRIOxOFCSocTRf7J5gdzVCK9_6f51yWGTWRzcwl8suoMAaQ77A/exec';
 
-        // เปลี่ยนข้อความระหว่างรอ
-        const messages = [
-            'กำลังเข้าสู่ระบบ...',
-            'กำลังโหลด AI Models...',
-            'กำลังเชื่อมต่อ Backend...',
-            'เกือบเสร็จแล้ว...'
+        const loadingTextEl = document.getElementById('loadingText');
+        const loadingPercentEl = document.getElementById('loadingPercent');
+        const progressBarEl = document.getElementById('progressBar');
+        const countdownEl = document.getElementById('countdown');
+        const metricPingEl = document.getElementById('metricPing');
+        const openNowBtn = document.getElementById('openNowBtn');
+
+        const loadingSteps = [
+            { text: 'กำลังยืนยันสิทธิ์ผู้ใช้งาน...', percent: 22, ping: '48ms' },
+            { text: 'กำลังเชื่อมต่อ Trading Engine...', percent: 48, ping: '44ms' },
+            { text: 'กำลัง Sync สัญญาณตลาดล่าสุด...', percent: 74, ping: '40ms' },
+            { text: 'กำลังเปิดแดชบอร์ดหลัก...', percent: 96, ping: '36ms' }
         ];
 
-        let msgIndex = 0;
-        const textEl = document.getElementById('loadingText');
+        const MIN_VISIBLE_MS = 1500;
+        const MAX_WAIT_READY_MS = 15000;
+        const STARTED_AT = Date.now();
+        let redirected = false;
+        let stepIndex = 0;
+        let stepTimer;
+        let countdownTimer;
+        let hardRedirect;
+        let handoffDone = false;
+        let readinessConfirmed = false;
+        let statusFallbackTimer;
 
-        const msgTimer = setInterval(function () {
-            msgIndex = (msgIndex + 1) % messages.length;
-            textEl.style.opacity = '0';
+        function redirectToApp() {
+            if (redirected) return;
+            redirected = true;
+            loadingPercentEl.textContent = '100%';
+            progressBarEl.style.width = '100%';
+
+            try {
+                if (window.top && window.top !== window) {
+                    window.top.location.href = GAS_URL;
+                } else {
+                    window.location.assign(GAS_URL);
+                }
+            } catch (error) {
+                window.location.href = GAS_URL;
+            }
+
             setTimeout(function () {
-                textEl.textContent = messages[msgIndex];
-                textEl.style.opacity = '1';
-            }, 200);
-        }, 600);
+                if (document.visibilityState === 'visible') {
+                    redirected = false;
+                    loadingTextEl.textContent = 'ไม่สามารถเปิดอัตโนมัติได้ กรุณากดปุ่มเพื่อไปต่อ';
+                    openNowBtn.textContent = 'เปิดในแท็บใหม่';
+                    openNowBtn.onclick = function () {
+                        window.open(GAS_URL, '_blank', 'noopener,noreferrer');
+                    };
+                }
+            }, 1200);
+        }
 
-        textEl.style.transition = 'opacity 0.2s ease';
+        function attemptHandoff(trigger, force) {
+            if (handoffDone) return;
+            const elapsed = Date.now() - STARTED_AT;
+            const mustWaitMinVisible = !force && elapsed < MIN_VISIBLE_MS;
+            const shouldWaitReady = !force && !readinessConfirmed && trigger !== 'timeout';
+            if (shouldWaitReady) return;
+            if (mustWaitMinVisible) {
+                setTimeout(function () {
+                    attemptHandoff('min-delay', force);
+                }, MIN_VISIBLE_MS - elapsed);
+                return;
+            }
 
-        // Redirect หลัง 2.5 วิ
-        setTimeout(function () {
-            clearInterval(msgTimer);
-            window.location.href = GAS_URL;
-        }, 2500);
+            handoffDone = true;
+            clearInterval(stepTimer);
+            clearInterval(countdownTimer);
+            clearTimeout(hardRedirect);
+            clearTimeout(statusFallbackTimer);
+            redirectToApp();
+        }
+
+        function confirmReady(source) {
+            if (readinessConfirmed) return;
+            readinessConfirmed = true;
+            loadingTextEl.textContent = 'ระบบพร้อมแล้ว กำลังเปิดแดชบอร์ด...';
+            loadingPercentEl.textContent = '100%';
+            progressBarEl.style.width = '100%';
+            metricPingEl.textContent = source === 'iframe' ? 'Ready' : 'Live';
+            attemptHandoff('ready', false);
+        }
+
+        function updateStep() {
+            if (stepIndex >= loadingSteps.length || redirected) return;
+            const step = loadingSteps[stepIndex];
+            loadingTextEl.style.opacity = '0';
+            setTimeout(function () {
+                loadingTextEl.textContent = step.text;
+                loadingTextEl.style.opacity = '1';
+            }, 140);
+            loadingPercentEl.textContent = step.percent + '%';
+            progressBarEl.style.width = step.percent + '%';
+            metricPingEl.textContent = step.ping;
+            stepIndex += 1;
+        }
+
+        function updateCountdown() {
+            if (redirected || handoffDone) return;
+            const elapsed = Date.now() - STARTED_AT;
+            const remainingSec = Math.max(0, Math.ceil((MAX_WAIT_READY_MS - elapsed) / 1000));
+            countdownEl.textContent = remainingSec;
+            if (elapsed >= MAX_WAIT_READY_MS) {
+                loadingTextEl.textContent = 'หมดเวลารอระบบ พร้อมเปิดแอปทันที...';
+                attemptHandoff('timeout', false);
+            }
+        }
+
+        openNowBtn.addEventListener('click', function () {
+            loadingTextEl.textContent = 'กำลังเปิดแอปทันที...';
+            attemptHandoff('manual', true);
+        });
+
+        stepTimer = setInterval(updateStep, 900);
+        countdownTimer = setInterval(updateCountdown, 120);
+        hardRedirect = setTimeout(function () {
+            attemptHandoff('timeout', false);
+        }, MAX_WAIT_READY_MS + 200);
+        statusFallbackTimer = setTimeout(function () {
+            if (!readinessConfirmed) {
+                loadingTextEl.textContent = 'กำลังรอระบบปลายทางตอบกลับ...';
+            }
+        }, 4000);
+
+        const preloadFrame = document.createElement('iframe');
+        preloadFrame.style.position = 'fixed';
+        preloadFrame.style.width = '1px';
+        preloadFrame.style.height = '1px';
+        preloadFrame.style.opacity = '0';
+        preloadFrame.style.pointerEvents = 'none';
+        preloadFrame.setAttribute('aria-hidden', 'true');
+        preloadFrame.src = GAS_URL;
+        preloadFrame.addEventListener('load', function () {
+            confirmReady('iframe');
+        });
+        preloadFrame.addEventListener('error', function () {
+            loadingTextEl.textContent = 'กำลังลองเชื่อมต่ออีกครั้ง...';
+        });
+        document.body.appendChild(preloadFrame);
+
+        fetch(GAS_URL, { mode: 'no-cors', cache: 'no-store' })
+            .then(function () {
+                confirmReady('fetch');
+            })
+            .catch(function () {});
+
+        window.addEventListener('beforeunload', function () {
+            clearInterval(stepTimer);
+            clearInterval(countdownTimer);
+            clearTimeout(hardRedirect);
+            clearTimeout(statusFallbackTimer);
+        });
+
+        updateStep();
+        updateCountdown();
     </script>
-
 </body>
 </html>
