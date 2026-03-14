@@ -2,676 +2,260 @@
 <html lang="th">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>APS Trading | Launch</title>
+    <meta name="viewport" content="width=device-width, maximum-scale=1.0, user-scalable=no">
+    <base target="_top">
+    <title>APS Trading</title>
 
     <link rel="icon" type="image/webp" href="https://s21-kling.klingai.com/kimg/EMXN1y8qeAoGdXBsb2FkEg55bGFiLXN0dW50LXNncBpec2UvYWlfcG9ydGFsX3NncF9tbXVfaW1nMmltZ19haXdlYl92MTVfcG9ydHJhaXQvZjU4NDhmMzQtNjJiYi00OWNiLTljOGEtZmM1M2Y1OGU3OTUyX2ltYWdlLnBuZw:360x360.webp?x-kcdn-pid=112372">
     <link rel="apple-touch-icon" href="https://s21-kling.klingai.com/kimg/EMXN1y8qeAoGdXBsb2FkEg55bGFiLXN0dW50LXNncBpec2UvYWlfcG9ydGFsX3NncF9tbXVfaW1nMmltZ19haXdlYl92MTVfcG9ydHJhaXQvZjU4NDhmMzQtNjJiYi00OWNiLTljOGEtZmM1M2Y1OGU3OTUyX2ltYWdlLnBuZw:360x360.webp?x-kcdn-pid=112372">
-    <link rel="manifest" href="manifest.json?v=3.2">
+    <link rel="manifest" href="manifest.json?v=3.3">
 
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="APS Trading">
     <meta name="theme-color" content="#0b1220">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
 
     <style>
-        :root {
-            --bg-1: #090f1d;
-            --bg-2: #101a2f;
-            --line: rgba(129, 154, 196, 0.22);
-            --text-main: #e9eefb;
-            --text-sub: #9bb0d8;
-            --accent: #4f9cff;
-            --accent-soft: #72f0ce;
-            --glass: rgba(10, 18, 33, 0.58);
-        }
-
         * {
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
         }
 
         html, body {
             width: 100%;
             height: 100%;
             overflow: hidden;
-        }
-
-        body {
+            background: #0b1220;
             font-family: "Segoe UI", "Prompt", "Noto Sans Thai", sans-serif;
-            color: var(--text-main);
-            background:
-                radial-gradient(circle at 14% 22%, rgba(79, 156, 255, 0.22) 0%, transparent 42%),
-                radial-gradient(circle at 78% 80%, rgba(114, 240, 206, 0.18) 0%, transparent 36%),
-                linear-gradient(160deg, var(--bg-1) 0%, var(--bg-2) 58%, #0f182e 100%);
-            display: grid;
-            place-items: center;
-            padding: 18px;
             -webkit-tap-highlight-color: transparent;
             -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
         }
 
-        .ambient-grid {
+        #app-shell {
             position: fixed;
             inset: 0;
-            pointer-events: none;
-            opacity: 0.24;
-            background-image:
-                linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-                linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-            background-size: 44px 44px;
-            mask-image: radial-gradient(circle at center, black 32%, transparent 92%);
-        }
-
-        .orb {
-            position: fixed;
-            border-radius: 999px;
-            filter: blur(56px);
-            pointer-events: none;
-        }
-
-        .orb-left {
-            width: min(48vw, 320px);
-            height: min(48vw, 320px);
-            top: 2%;
-            left: -10%;
-            background: rgba(79, 156, 255, 0.4);
-            animation: drift 10s ease-in-out infinite;
-        }
-
-        .orb-right {
-            width: min(44vw, 280px);
-            height: min(44vw, 280px);
-            bottom: -10%;
-            right: -4%;
-            background: rgba(114, 240, 206, 0.35);
-            animation: drift 12s ease-in-out infinite reverse;
-        }
-
-        .launch-card {
-            width: min(92vw, 470px);
-            border: 1px solid var(--line);
-            border-radius: 28px;
-            padding: clamp(20px, 4.2vw, 30px);
-            background: linear-gradient(160deg, rgba(255, 255, 255, 0.08), transparent 50%), var(--glass);
-            box-shadow:
-                0 28px 56px rgba(0, 0, 0, 0.42),
-                inset 0 1px 0 rgba(255, 255, 255, 0.18);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            position: relative;
-            overflow: hidden;
-            animation: enter 0.65s cubic-bezier(0.22, 1, 0.36, 1);
-        }
-
-        .launch-card::after {
-            content: "";
-            position: absolute;
-            inset: -24px;
-            background: conic-gradient(
-                from 220deg,
-                transparent 0deg,
-                rgba(79, 156, 255, 0.25) 72deg,
-                transparent 140deg,
-                rgba(114, 240, 206, 0.2) 235deg,
-                transparent 330deg
-            );
-            filter: blur(36px);
-            opacity: 0.32;
-            pointer-events: none;
-        }
-
-        .card-content {
-            position: relative;
             z-index: 1;
+            overflow: hidden;
         }
 
-        .status-chip {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            border-radius: 999px;
-            border: 1px solid rgba(114, 240, 206, 0.44);
-            color: #bcfce9;
-            background: rgba(114, 240, 206, 0.12);
-            font-size: 12px;
-            font-weight: 700;
-            letter-spacing: 0.02em;
-            padding: 7px 12px;
-            margin-bottom: 16px;
-        }
-
-        .status-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: #72f0ce;
-            box-shadow: 0 0 0 0 rgba(114, 240, 206, 0.65);
-            animation: ping 1.8s ease-out infinite;
-        }
-
-        .hero {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            margin-bottom: 18px;
-        }
-
-        .app-image-wrap {
-            position: relative;
-            width: 84px;
-            height: 84px;
-            flex: 0 0 84px;
-        }
-
-        .app-image-glow {
-            position: absolute;
-            inset: -12px;
-            border-radius: 26px;
-            background: linear-gradient(130deg, rgba(79, 156, 255, 0.8), rgba(114, 240, 206, 0.75));
-            filter: blur(16px);
-            opacity: 0.66;
-        }
-
-        .app-image {
-            position: relative;
+        #app-container {
             width: 100%;
             height: 100%;
-            object-fit: cover;
-            border-radius: 22px;
-            border: 1px solid rgba(255, 255, 255, 0.38);
-            box-shadow: 0 14px 34px rgba(0, 0, 0, 0.35);
+            border: 0;
+            background: #0b1220;
         }
 
-        .title h1 {
-            font-size: clamp(26px, 6vw, 34px);
-            line-height: 1;
-            letter-spacing: -0.03em;
-            margin-bottom: 7px;
-            color: var(--text-main);
+        .app-splash {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background:
+                radial-gradient(circle at 18% 20%, rgba(66, 133, 244, 0.25), transparent 44%),
+                radial-gradient(circle at 80% 82%, rgba(76, 211, 255, 0.18), transparent 40%),
+                linear-gradient(160deg, #081228 0%, #0d1934 54%, #0b152b 100%);
+            transition: opacity 0.45s ease;
         }
 
-        .title p {
-            color: var(--text-sub);
-            font-size: 13px;
-            letter-spacing: 0.04em;
-            text-transform: uppercase;
-        }
-
-        .divider {
-            height: 1px;
-            margin: 16px 0 14px;
-            background: linear-gradient(to right, transparent, rgba(155, 176, 216, 0.58), transparent);
-        }
-
-        .metrics {
-            display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 10px;
-            margin-bottom: 18px;
-        }
-
-        .metric {
-            border: 1px solid rgba(129, 154, 196, 0.2);
-            border-radius: 14px;
-            background: rgba(13, 22, 40, 0.5);
-            padding: 10px 10px 9px;
+        .splash-card {
+            width: min(90vw, 420px);
+            border-radius: 24px;
+            border: 1px solid rgba(151, 178, 230, 0.3);
+            background: rgba(10, 18, 34, 0.62);
+            padding: 20px;
+            box-shadow: 0 20px 48px rgba(0, 0, 0, 0.42);
+            backdrop-filter: blur(10px);
             text-align: center;
         }
 
-        .metric strong {
+        .splash-logo {
+            width: 82px;
+            height: 82px;
+            border-radius: 20px;
+            margin: 0 auto 14px;
             display: block;
-            color: #d9e5ff;
-            font-size: 15px;
-            margin-bottom: 2px;
+            box-shadow: 0 12px 30px rgba(66, 133, 244, 0.35);
         }
 
-        .metric span {
-            font-size: 11px;
-            color: #8ea5cf;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
+        .splash-title {
+            color: #edf3ff;
+            font-size: 28px;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            margin-bottom: 4px;
         }
 
-        .loading-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 8px;
-            gap: 14px;
-        }
-
-        .loading-text {
-            color: #c1d2f4;
-            font-size: 13px;
-            font-weight: 600;
-            transition: opacity 0.25s ease;
-        }
-
-        .loading-percent {
-            min-width: 40px;
-            text-align: right;
-            color: #9dc8ff;
+        .splash-sub {
+            color: #9eb3d9;
             font-size: 12px;
-            font-weight: 700;
-            letter-spacing: 0.04em;
-        }
-
-        .progress-track {
-            width: 100%;
-            height: 8px;
-            border-radius: 999px;
-            overflow: hidden;
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(129, 154, 196, 0.22);
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
             margin-bottom: 14px;
         }
 
-        .progress-bar {
+        .splash-status {
+            color: #c2d6ff;
+            font-size: 13px;
+            margin-bottom: 10px;
+        }
+
+        .bar {
+            width: 100%;
+            height: 7px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.1);
+            overflow: hidden;
+            margin-bottom: 12px;
+        }
+
+        .bar-fill {
+            width: 0;
             height: 100%;
-            width: 8%;
             border-radius: inherit;
-            background: linear-gradient(90deg, var(--accent), var(--accent-soft));
-            box-shadow: 0 0 12px rgba(79, 156, 255, 0.68);
-            transition: width 0.4s ease;
+            background: linear-gradient(90deg, #4285f4, #60d6ff);
+            transition: width 0.3s ease;
         }
 
-        .action-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
-
-        .hint {
-            color: #8ca5d2;
+        .splash-hint {
+            color: #8ea7d6;
             font-size: 12px;
+            min-height: 18px;
         }
 
-        .open-btn {
-            border: 1px solid rgba(114, 240, 206, 0.44);
-            background: linear-gradient(120deg, rgba(79, 156, 255, 0.27), rgba(114, 240, 206, 0.3));
-            color: #e8fff8;
-            border-radius: 12px;
+        .fallback {
+            margin-top: 14px;
+            display: none;
+        }
+
+        .fallback button {
+            border: 1px solid rgba(140, 190, 255, 0.35);
+            background: rgba(66, 133, 244, 0.2);
+            color: #e8f0ff;
             padding: 8px 12px;
+            border-radius: 10px;
             font-size: 12px;
             font-weight: 700;
-            letter-spacing: 0.03em;
             cursor: pointer;
-            transition: transform 0.18s ease, box-shadow 0.18s ease;
-        }
-
-        .open-btn:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
-        }
-
-        .app-home {
-            margin-top: 14px;
-            padding-top: 14px;
-            border-top: 1px solid rgba(129, 154, 196, 0.26);
-            opacity: 0;
-            transform: translateY(10px);
-            transition: opacity 0.35s ease, transform 0.35s ease;
-        }
-
-        .app-home.show {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .app-home h2 {
-            font-size: 17px;
-            margin-bottom: 10px;
-            letter-spacing: -0.01em;
-        }
-
-        .home-grid {
-            display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 10px;
-            margin-bottom: 10px;
-        }
-
-        .home-card {
-            border: 1px solid rgba(129, 154, 196, 0.22);
-            background: rgba(14, 24, 43, 0.62);
-            border-radius: 12px;
-            padding: 10px;
-        }
-
-        .home-card strong {
-            display: block;
-            font-size: 13px;
-            margin-bottom: 2px;
-            color: #ddecff;
-        }
-
-        .home-card span {
-            font-size: 11px;
-            color: #93add8;
-        }
-
-        .home-note {
-            font-size: 12px;
-            color: #9fb7df;
         }
 
         .version {
             position: fixed;
-            bottom: 16px;
             left: 50%;
+            bottom: 12px;
             transform: translateX(-50%);
-            color: rgba(188, 203, 232, 0.48);
+            color: rgba(188, 203, 232, 0.5);
             font-size: 11px;
-            letter-spacing: 0.05em;
-            z-index: 2;
-        }
-
-        @keyframes enter {
-            from { opacity: 0; transform: translateY(24px) scale(0.985); }
-            to { opacity: 1; transform: translateY(0) scale(1); }
-        }
-
-        @keyframes drift {
-            0%, 100% { transform: translate3d(0, 0, 0); }
-            50% { transform: translate3d(0, -12px, 0); }
-        }
-
-        @keyframes ping {
-            0% { box-shadow: 0 0 0 0 rgba(114, 240, 206, 0.55); }
-            70% { box-shadow: 0 0 0 11px rgba(114, 240, 206, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(114, 240, 206, 0); }
-        }
-
-        @media (max-width: 560px) {
-            .launch-card {
-                border-radius: 22px;
-                padding: 18px;
-            }
-
-            .hero {
-                align-items: flex-start;
-            }
-
-            .app-image-wrap {
-                width: 72px;
-                height: 72px;
-                flex-basis: 72px;
-            }
-
-            .metrics {
-                gap: 8px;
-            }
-
-            .metric strong {
-                font-size: 13px;
-            }
-
-            .metric span {
-                font-size: 10px;
-            }
-
-            .action-row {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-
-            .home-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-            *, *::before, *::after {
-                animation: none !important;
-                transition: none !important;
-            }
+            z-index: 10000;
+            letter-spacing: 0.04em;
         }
 
         @supports (padding: max(0px)) {
             body {
-                padding-bottom: max(18px, env(safe-area-inset-bottom));
+                padding-top: max(0px, env(safe-area-inset-top));
+                padding-bottom: max(0px, env(safe-area-inset-bottom));
+                padding-left: max(0px, env(safe-area-inset-left));
+                padding-right: max(0px, env(safe-area-inset-right));
             }
         }
     </style>
 </head>
 <body>
-    <div class="ambient-grid" aria-hidden="true"></div>
-    <div class="orb orb-left" aria-hidden="true"></div>
-    <div class="orb orb-right" aria-hidden="true"></div>
-
-    <main class="launch-card" role="main" aria-live="polite">
-        <div class="card-content">
-            <div class="status-chip">
-                <span class="status-dot"></span>
-                <span id="statusText">ระบบพร้อมเชื่อมต่อ AI Engine</span>
+    <div class="app-splash" id="splash-screen">
+        <div class="splash-card">
+            <img class="splash-logo" src="https://s21-kling.klingai.com/kimg/EMXN1y8qeAoGdXBsb2FkEg55bGFiLXN0dW50LXNncBpec2UvYWlfcG9ydGFsX3NncF9tbXVfaW1nMmltZ19haXdlYl92MTVfcG9ydHJhaXQvZjU4NDhmMzQtNjJiYi00OWNiLTljOGEtZmM1M2Y1OGU3OTUyX2ltYWdlLnBuZw:360x360.webp?x-kcdn-pid=112372" alt="APS Trading">
+            <h1 class="splash-title">APS Trading</h1>
+            <p class="splash-sub">Internal Web Application</p>
+            <p class="splash-status" id="splashStatus">กำลังเชื่อมต่อระบบ...</p>
+            <div class="bar"><div class="bar-fill" id="barFill"></div></div>
+            <p class="splash-hint" id="splashHint">กำลังเริ่มต้นโมดูลหลัก</p>
+            <div class="fallback" id="fallbackPanel">
+                <button type="button" id="openDirectBtn">เปิดแอปโดยตรง</button>
             </div>
-
-            <section class="hero">
-                <div class="app-image-wrap">
-                    <div class="app-image-glow"></div>
-                    <img
-                        class="app-image"
-                        src="https://s21-kling.klingai.com/kimg/EMXN1y8qeAoGdXBsb2FkEg55bGFiLXN0dW50LXNncBpec2UvYWlfcG9ydGFsX3NncF9tbXVfaW1nMmltZ19haXdlYl92MTVfcG9ydHJhaXQvZjU4NDhmMzQtNjJiYi00OWNiLTljOGEtZmM1M2Y1OGU3OTUyX2ltYWdlLnBuZw:360x360.webp?x-kcdn-pid=112372"
-                        alt="APS Trading App"
-                    >
-                </div>
-                <div class="title">
-                    <h1>APS Trading</h1>
-                    <p>AI Trading Command Center</p>
-                </div>
-            </section>
-
-            <div class="divider"></div>
-
-            <section class="metrics" aria-label="System Status">
-                <div class="metric">
-                    <strong id="metricModel">3/3</strong>
-                    <span>Models</span>
-                </div>
-                <div class="metric">
-                    <strong id="metricLink">Secure</strong>
-                    <span>Gateway</span>
-                </div>
-                <div class="metric">
-                    <strong id="metricPing">42ms</strong>
-                    <span>Latency</span>
-                </div>
-            </section>
-
-            <section aria-label="Loading" id="loadingSection">
-                <div class="loading-row">
-                    <p class="loading-text" id="loadingText">กำลังเตรียมระบบสำหรับคุณ...</p>
-                    <p class="loading-percent" id="loadingPercent">8%</p>
-                </div>
-                <div class="progress-track">
-                    <div class="progress-bar" id="progressBar"></div>
-                </div>
-            </section>
-
-            <div class="action-row">
-                <p class="hint" id="hintText">กำลังรอระบบพร้อม (สูงสุด <span id="countdown">15</span> วินาที)</p>
-                <button class="open-btn" id="openNowBtn" type="button">เริ่มใช้งานบน GitHub</button>
-            </div>
-
-            <section class="app-home" id="appHome" hidden>
-                <h2>APS Trading Web พร้อมใช้งาน</h2>
-                <div class="home-grid">
-                    <article class="home-card">
-                        <strong>Market Panel</strong>
-                        <span>เช็กภาพรวมตลาดและสัญญาณหลัก</span>
-                    </article>
-                    <article class="home-card">
-                        <strong>Signal Summary</strong>
-                        <span>ติดตามทิศทางและแรงซื้อขายล่าสุด</span>
-                    </article>
-                    <article class="home-card">
-                        <strong>Risk Monitor</strong>
-                        <span>มุมมองความเสี่ยงแบบเรียลไทม์</span>
-                    </article>
-                    <article class="home-card">
-                        <strong>Execution Ready</strong>
-                        <span>ระบบพร้อมใช้งานบน GitHub mode</span>
-                    </article>
-                </div>
-                <p class="home-note">ตอนนี้หน้าเว็บทำงานอยู่บน GitHub โดยตรง และไม่เด้งไปหน้า GAS แล้ว</p>
-            </section>
         </div>
-    </main>
+    </div>
 
-    <div class="version">APS Trading v3.2</div>
+    <div id="app-shell">
+        <iframe id="app-container" title="APS Trading App"></iframe>
+    </div>
+
+    <div class="version">APS Trading v3.3</div>
 
     <script>
         const GAS_URL = 'https://script.google.com/macros/s/AKfycbwOvl1P1rv5jwfn5Cq0nRIOxOFCSocTRf7J5gdzVCK9_6f51yWGTWRzcwl8suoMAaQ77A/exec';
 
-        const loadingTextEl = document.getElementById('loadingText');
-        const loadingPercentEl = document.getElementById('loadingPercent');
-        const progressBarEl = document.getElementById('progressBar');
-        const countdownEl = document.getElementById('countdown');
-        const metricPingEl = document.getElementById('metricPing');
-        const openNowBtn = document.getElementById('openNowBtn');
-        const statusTextEl = document.getElementById('statusText');
-        const hintTextEl = document.getElementById('hintText');
-        const loadingSectionEl = document.getElementById('loadingSection');
-        const appHomeEl = document.getElementById('appHome');
-        const metricLinkEl = document.getElementById('metricLink');
-        const metricModelEl = document.getElementById('metricModel');
+        const iframe = document.getElementById('app-container');
+        const splash = document.getElementById('splash-screen');
+        const barFill = document.getElementById('barFill');
+        const splashStatus = document.getElementById('splashStatus');
+        const splashHint = document.getElementById('splashHint');
+        const fallbackPanel = document.getElementById('fallbackPanel');
+        const openDirectBtn = document.getElementById('openDirectBtn');
 
-        const loadingSteps = [
-            { text: 'กำลังยืนยันสิทธิ์ผู้ใช้งาน...', percent: 22, ping: '48ms' },
-            { text: 'กำลังเชื่อมต่อ Trading Engine...', percent: 48, ping: '44ms' },
-            { text: 'กำลัง Sync สัญญาณตลาดล่าสุด...', percent: 74, ping: '40ms' },
-            { text: 'กำลังเปิดแดชบอร์ดหลัก...', percent: 96, ping: '36ms' }
+        let splashHidden = false;
+        let progress = 0;
+
+        function hideSplash() {
+            if (splashHidden) return;
+            splashHidden = true;
+            splash.style.opacity = '0';
+            setTimeout(function () {
+                splash.style.display = 'none';
+            }, 460);
+        }
+
+        function setProgress(nextValue, statusText, hintText) {
+            progress = Math.max(progress, nextValue);
+            barFill.style.width = progress + '%';
+            if (statusText) splashStatus.textContent = statusText;
+            if (hintText) splashHint.textContent = hintText;
+        }
+
+        const timeline = [
+            { at: 200, p: 20, s: 'กำลังโหลดระบบภายใน...', h: 'เตรียมหน้าแอป' },
+            { at: 900, p: 45, s: 'กำลังเชื่อมต่อบริการ...', h: 'กำลังเปิดเซสชัน' },
+            { at: 1800, p: 72, s: 'กำลังซิงก์ข้อมูล...', h: 'รอการตอบกลับจากระบบ' }
         ];
 
-        const MIN_VISIBLE_MS = 1500;
-        const MAX_WAIT_READY_MS = 15000;
-        const STARTED_AT = Date.now();
-        let stepIndex = 0;
-        let stepTimer;
-        let countdownTimer;
-        let healthCheckTimer;
-        let appReady = false;
-        let appEntered = false;
-        let healthChecked = false;
-        let healthStartedAt = 0;
-
-        function enterAppHome() {
-            if (appEntered) return;
-            appEntered = true;
-            loadingSectionEl.hidden = true;
-            statusTextEl.textContent = 'GitHub Web Mode Active';
-            hintTextEl.textContent = 'ระบบพร้อมใช้งานบน GitHub เรียบร้อย';
-            metricModelEl.textContent = 'Ready';
-            openNowBtn.textContent = 'กำลังใช้งานแล้ว';
-            openNowBtn.disabled = true;
-            openNowBtn.style.opacity = '0.65';
-            openNowBtn.style.cursor = 'default';
-            appHomeEl.hidden = false;
-            requestAnimationFrame(function () {
-                appHomeEl.classList.add('show');
-            });
-        }
-
-        function setReadyState(message, gatewayText, pingText) {
-            if (appReady) return;
-            appReady = true;
-            healthChecked = true;
-            loadingTextEl.textContent = message;
-            loadingPercentEl.textContent = '100%';
-            progressBarEl.style.width = '100%';
-            if (gatewayText) {
-                metricLinkEl.textContent = gatewayText;
-            }
-            if (pingText) {
-                metricPingEl.textContent = pingText;
-            }
-            openNowBtn.textContent = 'เข้าสู่หน้าเว็บ';
-            hintTextEl.textContent = 'ระบบพร้อมแล้ว กำลังเปิดหน้าใช้งาน...';
-            clearInterval(stepTimer);
-            clearInterval(countdownTimer);
-            clearTimeout(healthCheckTimer);
-            setTimeout(enterAppHome, 450);
-        }
-
-        function runGasHealthCheck() {
-            healthStartedAt = performance.now();
-            fetch(GAS_URL, { mode: 'no-cors', cache: 'no-store' })
-                .then(function () {
-                    const elapsed = Math.max(1, Math.round(performance.now() - healthStartedAt));
-                    const delay = Date.now() - STARTED_AT;
-                    if (delay < MIN_VISIBLE_MS) {
-                        setTimeout(function () {
-                            setReadyState('ระบบพร้อมแล้ว เริ่มใช้งานบน GitHub ได้เลย', 'Online', elapsed + 'ms');
-                        }, MIN_VISIBLE_MS - delay);
-                        return;
-                    }
-                    setReadyState('ระบบพร้อมแล้ว เริ่มใช้งานบน GitHub ได้เลย', 'Online', elapsed + 'ms');
-                })
-                .catch(function () {
-                    const delay = Date.now() - STARTED_AT;
-                    if (delay < MIN_VISIBLE_MS) {
-                        setTimeout(function () {
-                            setReadyState('เปิดใช้งานโหมด GitHub สำเร็จ (เชื่อมต่อ GAS บางส่วน)', 'Partial', 'N/A');
-                        }, MIN_VISIBLE_MS - delay);
-                        return;
-                    }
-                    setReadyState('เปิดใช้งานโหมด GitHub สำเร็จ (เชื่อมต่อ GAS บางส่วน)', 'Partial', 'N/A');
-                });
-        }
-
-        function updateStep() {
-            if (stepIndex >= loadingSteps.length || appReady) return;
-            const step = loadingSteps[stepIndex];
-            loadingTextEl.style.opacity = '0';
+        timeline.forEach(function (step) {
             setTimeout(function () {
-                loadingTextEl.textContent = step.text;
-                loadingTextEl.style.opacity = '1';
-            }, 140);
-            loadingPercentEl.textContent = step.percent + '%';
-            progressBarEl.style.width = step.percent + '%';
-            metricPingEl.textContent = step.ping;
-            stepIndex += 1;
-        }
-
-        function updateCountdown() {
-            if (appReady) return;
-            const elapsed = Date.now() - STARTED_AT;
-            const remainingSec = Math.max(0, Math.ceil((MAX_WAIT_READY_MS - elapsed) / 1000));
-            countdownEl.textContent = remainingSec;
-            if (elapsed >= MAX_WAIT_READY_MS) {
-                setReadyState('พร้อมใช้งานบน GitHub แล้ว (ข้ามการรอระบบปลายทาง)', 'Ready', 'N/A');
-            }
-        }
-
-        openNowBtn.addEventListener('click', function () {
-            if (!appReady) {
-                setReadyState('เปิดใช้งานทันทีบน GitHub เรียบร้อย', 'Ready', 'Manual');
-            }
-            enterAppHome();
+                setProgress(step.p, step.s, step.h);
+            }, step.at);
         });
 
-        stepTimer = setInterval(updateStep, 900);
-        countdownTimer = setInterval(updateCountdown, 120);
-        healthCheckTimer = setTimeout(function () {
-            if (!healthChecked) {
-                loadingTextEl.textContent = 'กำลังรอระบบปลายทางตอบกลับ...';
-            }
-        }, 4000);
-        runGasHealthCheck();
-
-        window.addEventListener('beforeunload', function () {
-            clearInterval(stepTimer);
-            clearInterval(countdownTimer);
-            clearTimeout(healthCheckTimer);
+        iframe.addEventListener('load', function () {
+            setProgress(100, 'เชื่อมต่อสำเร็จ', 'ระบบพร้อมใช้งาน');
+            setTimeout(hideSplash, 250);
         });
 
-        updateStep();
-        updateCountdown();
+        openDirectBtn.addEventListener('click', function () {
+            window.open(GAS_URL, '_blank', 'noopener,noreferrer');
+        });
+
+        setTimeout(function () {
+            if (splashHidden) return;
+            setProgress(90, 'การเชื่อมต่อช้ากว่าปกติ', 'คุณยังรอต่อได้ หรือเปิดตรง');
+            fallbackPanel.style.display = 'block';
+        }, 7000);
+
+        setTimeout(function () {
+            if (splashHidden) return;
+            setProgress(100, 'ระบบพร้อมในโหมดพรีวิว', 'ซ่อนหน้ารอและแสดงแอป');
+            hideSplash();
+        }, 12000);
+
+        iframe.src = GAS_URL;
+
+        document.body.addEventListener('touchmove', function (e) {
+            if (e.target.id !== 'app-container') {
+                e.preventDefault();
+            }
+        }, { passive: false });
     </script>
 </body>
 </html>
