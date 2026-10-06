@@ -1,261 +1,110 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, maximum-scale=1.0, user-scalable=no">
-    <base target="_top">
-    <title>APS Trading</title>
-
-    <link rel="icon" type="image/webp" href="https://s21-kling.klingai.com/kimg/EMXN1y8qeAoGdXBsb2FkEg55bGFiLXN0dW50LXNncBpec2UvYWlfcG9ydGFsX3NncF9tbXVfaW1nMmltZ19haXdlYl92MTVfcG9ydHJhaXQvZjU4NDhmMzQtNjJiYi00OWNiLTljOGEtZmM1M2Y1OGU3OTUyX2ltYWdlLnBuZw:360x360.webp?x-kcdn-pid=112372">
-    <link rel="apple-touch-icon" href="https://s21-kling.klingai.com/kimg/EMXN1y8qeAoGdXBsb2FkEg55bGFiLXN0dW50LXNncBpec2UvYWlfcG9ydGFsX3NncF9tbXVfaW1nMmltZ19haXdlYl92MTVfcG9ydHJhaXQvZjU4NDhmMzQtNjJiYi00OWNiLTljOGEtZmM1M2Y1OGU3OTUyX2ltYWdlLnBuZw:360x360.webp?x-kcdn-pid=112372">
-    <link rel="manifest" href="manifest.json?v=3.3">
-
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="APS Trading">
-    <meta name="theme-color" content="#0b1220">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html, body {
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            background: #0b1220;
-            font-family: "Segoe UI", "Prompt", "Noto Sans Thai", sans-serif;
-            -webkit-tap-highlight-color: transparent;
-            -webkit-touch-callout: none;
-            -webkit-user-select: none;
-            user-select: none;
-        }
-
-        #app-shell {
-            position: fixed;
-            inset: 0;
-            z-index: 1;
-            overflow: hidden;
-        }
-
-        #app-container {
-            width: 100%;
-            height: 100%;
-            border: 0;
-            background: #0b1220;
-        }
-
-        .app-splash {
-            position: fixed;
-            inset: 0;
-            z-index: 9999;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background:
-                radial-gradient(circle at 18% 20%, rgba(66, 133, 244, 0.25), transparent 44%),
-                radial-gradient(circle at 80% 82%, rgba(76, 211, 255, 0.18), transparent 40%),
-                linear-gradient(160deg, #081228 0%, #0d1934 54%, #0b152b 100%);
-            transition: opacity 0.45s ease;
-        }
-
-        .splash-card {
-            width: min(90vw, 420px);
-            border-radius: 24px;
-            border: 1px solid rgba(151, 178, 230, 0.3);
-            background: rgba(10, 18, 34, 0.62);
-            padding: 20px;
-            box-shadow: 0 20px 48px rgba(0, 0, 0, 0.42);
-            backdrop-filter: blur(10px);
-            text-align: center;
-        }
-
-        .splash-logo {
-            width: 82px;
-            height: 82px;
-            border-radius: 20px;
-            margin: 0 auto 14px;
-            display: block;
-            box-shadow: 0 12px 30px rgba(66, 133, 244, 0.35);
-        }
-
-        .splash-title {
-            color: #edf3ff;
-            font-size: 28px;
-            font-weight: 800;
-            letter-spacing: -0.02em;
-            margin-bottom: 4px;
-        }
-
-        .splash-sub {
-            color: #9eb3d9;
-            font-size: 12px;
-            letter-spacing: 0.06em;
-            text-transform: uppercase;
-            margin-bottom: 14px;
-        }
-
-        .splash-status {
-            color: #c2d6ff;
-            font-size: 13px;
-            margin-bottom: 10px;
-        }
-
-        .bar {
-            width: 100%;
-            height: 7px;
-            border-radius: 999px;
-            background: rgba(255, 255, 255, 0.1);
-            overflow: hidden;
-            margin-bottom: 12px;
-        }
-
-        .bar-fill {
-            width: 0;
-            height: 100%;
-            border-radius: inherit;
-            background: linear-gradient(90deg, #4285f4, #60d6ff);
-            transition: width 0.3s ease;
-        }
-
-        .splash-hint {
-            color: #8ea7d6;
-            font-size: 12px;
-            min-height: 18px;
-        }
-
-        .fallback {
-            margin-top: 14px;
-            display: none;
-        }
-
-        .fallback button {
-            border: 1px solid rgba(140, 190, 255, 0.35);
-            background: rgba(66, 133, 244, 0.2);
-            color: #e8f0ff;
-            padding: 8px 12px;
-            border-radius: 10px;
-            font-size: 12px;
-            font-weight: 700;
-            cursor: pointer;
-        }
-
-        .version {
-            position: fixed;
-            left: 50%;
-            bottom: 12px;
-            transform: translateX(-50%);
-            color: rgba(188, 203, 232, 0.5);
-            font-size: 11px;
-            z-index: 10000;
-            letter-spacing: 0.04em;
-        }
-
-        @supports (padding: max(0px)) {
-            body {
-                padding-top: max(0px, env(safe-area-inset-top));
-                padding-bottom: max(0px, env(safe-area-inset-bottom));
-                padding-left: max(0px, env(safe-area-inset-left));
-                padding-right: max(0px, env(safe-area-inset-right));
-            }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>AlphaSense · Market Intelligence</title>
+  <link rel="manifest" href="manifest.json?v=4.0">
+  <link rel="icon" type="image/svg+xml" href="icon.svg">
+  <link rel="apple-touch-icon" href="https://s21-kling.klingai.com/kimg/EMXN1y8qeAoGdXBsb2FkEg55bGFiLXN0dW50LXNncBpec2UvYWlfcG9ydGFsX3NncF9tbXVfaW1nMmltZ19haXdlYl92MTVfcG9ydHJhaXQvZjU4NDhmMzQtNjJiYi00OWNiLTljOGEtZmM1M2Y1OGU3OTUyX2ltYWdlLnBuZw:360x360.webp?x-kcdn-pid=112372">
+  <meta name="theme-color" content="#0c1210">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="AlphaSense">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <style>
+    * {box-sizing:border-box;}
+    html,body {margin:0; width:100%; height:100%; background:#0c1210; color:#ecf4ef; font-family:system-ui,"Noto Sans Thai",sans-serif;}
+    button,a {font:inherit; -webkit-tap-highlight-color:transparent;}
+    button:focus-visible,a:focus-visible {outline:2px solid #94dfb9; outline-offset:4px;}
+    #app-shell {position:fixed; inset:0; padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);}
+    #app-container {display:block; width:100%; height:100%; border:0; background:#0c1210;}
+    .app-splash {position:fixed; inset:0; z-index:10; display:grid; place-items:center; padding:24px; background:#0c1210; transition:opacity .25s;}
+    .app-splash::before {content:''; position:absolute; inset:0; pointer-events:none; background:radial-gradient(ellipse at 50% 30%,#38674718,transparent 60%);}
+    .splash-card {position:relative; width:min(100%,390px); text-align:center;}
+    .brand-mark {display:grid; place-items:center; width:64px; height:64px; margin:0 auto 27px; border-radius:18px; border:1px solid #34493c; background:#15221b; color:#94dfb9; font-size:41px; font-weight:500; letter-spacing:-3px;}
+    .splash-kicker {color:#ddbc80; font-size:9px; letter-spacing:2.5px; margin:0 0 12px;}
+    h1 {font-size:34px; font-weight:500; letter-spacing:-1.5px; margin:0 0 13px;}
+    .splash-sub {font-size:12px; line-height:1.9; color:#a6b9ae; margin:0 0 33px;}
+    .status-row {display:flex; align-items:center; justify-content:center; gap:10px; font-size:12px; color:#c5d6cc;}
+    .spinner {width:15px; height:15px; border:2px solid #293a31; border-top-color:#94dfb9; border-radius:50%; animation:spin .9s linear infinite;}
+    .splash-hint {font-size:10px; color:#8da398; line-height:1.9; min-height:40px; margin:13px 0 0;}
+    .fallback {display:none; padding-top:22px; margin-top:18px; border-top:1px solid #293a31;}
+    .fallback-actions {display:flex; justify-content:center; flex-wrap:wrap; gap:9px;}
+    .fallback button,.fallback a {min-height:42px; padding:11px 14px; border:1px solid #34493c; border-radius:9px; background:#18231e; color:#ecf4ef; text-decoration:none; cursor:pointer; font-size:11px;}
+    .fallback a {background:#9cddb9; color:#143023; border-color:#9cddb9;}
+    .fallback p {font-size:10px; line-height:1.9; color:#8da398;}
+    .version {position:fixed; bottom:max(20px,env(safe-area-inset-bottom)); left:0; right:0; text-align:center; font-size:9px; letter-spacing:1.4px; color:#789082; pointer-events:none;}
+    .app-splash[hidden] {display:none;}
+    @keyframes spin {to {transform:rotate(360deg);}}
+    @media(prefers-reduced-motion:reduce) {.spinner {animation:none; border-color:#94dfb9;} .app-splash {transition:none;}}
+  </style>
 </head>
 <body>
-    <div class="app-splash" id="splash-screen">
-        <div class="splash-card">
-            <img class="splash-logo" src="https://s21-kling.klingai.com/kimg/EMXN1y8qeAoGdXBsb2FkEg55bGFiLXN0dW50LXNncBpec2UvYWlfcG9ydGFsX3NncF9tbXVfaW1nMmltZ19haXdlYl92MTVfcG9ydHJhaXQvZjU4NDhmMzQtNjJiYi00OWNiLTljOGEtZmM1M2Y1OGU3OTUyX2ltYWdlLnBuZw:360x360.webp?x-kcdn-pid=112372" alt="APS Trading">
-            <h1 class="splash-title">APS Trading</h1>
-            <p class="splash-sub">Internal Web Application</p>
-            <p class="splash-status" id="splashStatus">กำลังเชื่อมต่อระบบ...</p>
-            <div class="bar"><div class="bar-fill" id="barFill"></div></div>
-            <p class="splash-hint" id="splashHint">กำลังเริ่มต้นโมดูลหลัก</p>
-            <div class="fallback" id="fallbackPanel">
-                <button type="button" id="openDirectBtn">เปิดแอปโดยตรง</button>
-            </div>
+  <div class="app-splash" id="splash-screen">
+    <main class="splash-card">
+      <div class="brand-mark" aria-hidden="true">A</div>
+      <p class="splash-kicker">MARKET INTELLIGENCE WORKSPACE</p>
+      <h1>alphasense</h1>
+      <p class="splash-sub">ทุกมุมมอง ก่อนตัดสินใจ<br>กำลังเปิดพื้นที่วิเคราะห์ของคุณ</p>
+      <div class="status-row" role="status"><span class="spinner" aria-hidden="true"></span><span id="splashStatus">กำลังเปิดหน้าแอป…</span></div>
+      <p class="splash-hint" id="splashHint">รอการยืนยันจากหน้าแอป<br>ไม่มีการเรียกวิเคราะห์ AI อัตโนมัติจากหน้านี้</p>
+      <div class="fallback" id="fallbackPanel">
+        <div class="fallback-actions">
+          <button type="button" id="showAppBtn">ดูหน้าที่โหลดอยู่</button>
+          <a id="openDirectBtn" target="_blank" rel="noopener noreferrer">เปิดแอปโดยตรง</a>
+          <button type="button" id="retryBtn">โหลดหน้าใหม่</button>
         </div>
-    </div>
-
-    <div id="app-shell">
-        <iframe id="app-container" title="APS Trading App"></iframe>
-    </div>
-
-    <div class="version">APS Trading v3.3</div>
-
-    <script>
-        const GAS_URL = 'https://script.google.com/macros/s/AKfycbw10SEWBz2FEBJ9BLqACmCe8fY6wIihZ1pR-qaJre4F6kOFVJQGiaTgQlaAwL2LYhWRMw/exec';
-
-        const iframe = document.getElementById('app-container');
-        const splash = document.getElementById('splash-screen');
-        const barFill = document.getElementById('barFill');
-        const splashStatus = document.getElementById('splashStatus');
-        const splashHint = document.getElementById('splashHint');
-        const fallbackPanel = document.getElementById('fallbackPanel');
-        const openDirectBtn = document.getElementById('openDirectBtn');
-
-        let splashHidden = false;
-        let progress = 0;
-
-        function hideSplash() {
-            if (splashHidden) return;
-            splashHidden = true;
-            splash.style.opacity = '0';
-            setTimeout(function () {
-                splash.style.display = 'none';
-            }, 460);
-        }
-
-        function setProgress(nextValue, statusText, hintText) {
-            progress = Math.max(progress, nextValue);
-            barFill.style.width = progress + '%';
-            if (statusText) splashStatus.textContent = statusText;
-            if (hintText) splashHint.textContent = hintText;
-        }
-
-        const timeline = [
-            { at: 200, p: 20, s: 'กำลังโหลดระบบภายใน...', h: 'เตรียมหน้าแอป' },
-            { at: 900, p: 45, s: 'กำลังเชื่อมต่อบริการ...', h: 'กำลังเปิดเซสชัน' },
-            { at: 1800, p: 72, s: 'กำลังซิงก์ข้อมูล...', h: 'รอการตอบกลับจากระบบ' }
-        ];
-
-        timeline.forEach(function (step) {
-            setTimeout(function () {
-                setProgress(step.p, step.s, step.h);
-            }, step.at);
-        });
-
-        iframe.addEventListener('load', function () {
-            setProgress(100, 'เชื่อมต่อสำเร็จ', 'ระบบพร้อมใช้งาน');
-            setTimeout(hideSplash, 250);
-        });
-
-        openDirectBtn.addEventListener('click', function () {
-            window.open(GAS_URL, '_blank', 'noopener,noreferrer');
-        });
-
-        setTimeout(function () {
-            if (splashHidden) return;
-            setProgress(90, 'การเชื่อมต่อช้ากว่าปกติ', 'คุณยังรอต่อได้ หรือเปิดตรง');
-            fallbackPanel.style.display = 'block';
-        }, 7000);
-
-        setTimeout(function () {
-            if (splashHidden) return;
-            setProgress(100, 'ระบบพร้อมในโหมดพรีวิว', 'ซ่อนหน้ารอและแสดงแอป');
-            hideSplash();
-        }, 12000);
-
-        iframe.src = GAS_URL;
-
-        document.body.addEventListener('touchmove', function (e) {
-            if (e.target.id !== 'app-container') {
-                e.preventDefault();
-            }
-        }, { passive: false });
-    </script>
+        <p>ยังไม่ได้รับการยืนยันว่าหน้าแอปพร้อม<br>ถ้าคุณเริ่มวิเคราะห์ไปแล้ว อย่าโหลดใหม่หรือส่งคำขอซ้ำ</p>
+      </div>
+    </main>
+    <div class="version">ALPHASENSE · APS TRADING 4.0</div>
+  </div>
+  <div id="app-shell">
+    <iframe id="app-container" title="AlphaSense Market Intelligence" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+  </div>
+  <noscript>โปรดเปิด JavaScript เพื่อใช้หน้าแอป</noscript>
+  <script>
+    // Existing deployment is updated in place; bookmarks and installed shortcuts stay valid.
+    const GAS_URL = 'https://script.google.com/macros/s/AKfycbw10SEWBz2FEBJ9BLqACmCe8fY6wIihZ1pR-qaJre4F6kOFVJQGiaTgQlaAwL2LYhWRMw/exec';
+    const iframe=document.getElementById('app-container');
+    const splash=document.getElementById('splash-screen');
+    const status=document.getElementById('splashStatus');
+    const hint=document.getElementById('splashHint');
+    const fallback=document.getElementById('fallbackPanel');
+    document.getElementById('openDirectBtn').href=GAS_URL;
+    let ready=false,waitingTimer=null;
+    function hideSplash() {
+      splash.style.opacity='0';
+      setTimeout(()=>{splash.hidden=true;},250);
+    }
+    function showFallback() {
+      if(ready) return;
+      status.textContent='หน้าแอปใช้เวลานานกว่าปกติ';
+      hint.textContent='ยังไม่ได้รับการยืนยันจากหน้าแอป คุณสามารถรอต่อหรือเปิดแอปโดยตรงได้';
+      fallback.style.display='block';
+    }
+    function start() {
+      ready=false; splash.hidden=false; splash.style.opacity='1'; fallback.style.display='none';
+      status.textContent='กำลังเปิดหน้าแอป…'; hint.textContent='รอการยืนยันว่าหน้าแอปพร้อมแสดงผล';
+      clearTimeout(waitingTimer); waitingTimer=setTimeout(showFallback,15000);
+      iframe.src=GAS_URL;
+    }
+    window.addEventListener('message',event=>{
+      let host;
+      try {host=new URL(event.origin).hostname;} catch(_) {return;}
+      const googleOrigin=host==='script.google.com' || host==='script.googleusercontent.com' || /^[a-z0-9-]+-script\.googleusercontent\.com$/.test(host);
+      if(!googleOrigin || event.data?.type!=='ALPHASENSE_READY' || event.data?.version!=='ALPHASENSE-PREMIUM-20261006-v1') return;
+      ready=true; clearTimeout(waitingTimer);
+      status.textContent='หน้าแอปพร้อมแสดงผล'; hideSplash();
+    });
+    iframe.addEventListener('load',()=>{
+      if(!ready) hint.textContent='โหลดกรอบหน้าแล้ว กำลังรอการยืนยันจากแอปด้านใน';
+    });
+    iframe.addEventListener('error',showFallback);
+    document.getElementById('showAppBtn').addEventListener('click',hideSplash);
+    document.getElementById('retryBtn').addEventListener('click',start);
+    start();
+  </script>
 </body>
 </html>
