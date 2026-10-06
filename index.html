@@ -3,13 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>AlphaSense · Market Intelligence</title>
-  <link rel="manifest" href="manifest.json?v=4.0">
-  <link rel="icon" type="image/svg+xml" href="icon.svg">
-  <link rel="apple-touch-icon" href="https://s21-kling.klingai.com/kimg/EMXN1y8qeAoGdXBsb2FkEg55bGFiLXN0dW50LXNncBpec2UvYWlfcG9ydGFsX3NncF9tbXVfaW1nMmltZ19haXdlYl92MTVfcG9ydHJhaXQvZjU4NDhmMzQtNjJiYi00OWNiLTljOGEtZmM1M2Y1OGU3OTUyX2ltYWdlLnBuZw:360x360.webp?x-kcdn-pid=112372">
+  <title>Chart2Plan · วิเคราะห์กราฟ วางแผนเทรดด้วย AI</title>
+  <meta name="description" content="Chart2Plan — วิเคราะห์กราฟ วางแผนจุดเข้า SL และ TP พร้อมติดตามสัญญาณในพื้นที่เดียว">
+  <meta name="application-name" content="Chart2Plan">
+  <meta property="og:title" content="Chart2Plan">
+  <meta property="og:description" content="วิเคราะห์กราฟ วางแผนเทรดด้วย AI">
+  <meta property="og:image" content="https://basssg.github.io/AlphaSense-Analysis-Webapp/assets/brand/chart2plan-icon-1024-v1.png">
+  <link rel="manifest" href="manifest.json?v=chart2plan-1">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/brand/chart2plan-favicon-32-v1.png">
+  <link rel="icon" type="image/png" sizes="64x64" href="assets/brand/chart2plan-favicon-64-v1.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/brand/chart2plan-apple-touch-180-v1.png">
   <meta name="theme-color" content="#0c1210">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="AlphaSense">
+  <meta name="apple-mobile-web-app-title" content="Chart2Plan">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <style>
@@ -22,7 +28,8 @@
     .app-splash {position:fixed; inset:0; z-index:10; display:grid; place-items:center; padding:24px; background:#0c1210; transition:opacity .25s;}
     .app-splash::before {content:''; position:absolute; inset:0; pointer-events:none; background:radial-gradient(ellipse at 50% 30%,#38674718,transparent 60%);}
     .splash-card {position:relative; width:min(100%,390px); text-align:center;}
-    .brand-mark {display:grid; place-items:center; width:64px; height:64px; margin:0 auto 27px; border-radius:18px; border:1px solid #34493c; background:#15221b; color:#94dfb9; font-size:41px; font-weight:500; letter-spacing:-3px;}
+    .brand-mark {display:block; width:96px; height:96px; margin:0 auto 24px; border-radius:25px; border:1px solid #293a31; object-fit:contain; background:#0c1210;}
+    .brand-number {color:#ddbc80;}
     .splash-kicker {color:#ddbc80; font-size:9px; letter-spacing:2.5px; margin:0 0 12px;}
     h1 {font-size:34px; font-weight:500; letter-spacing:-1.5px; margin:0 0 13px;}
     .splash-sub {font-size:12px; line-height:1.9; color:#a6b9ae; margin:0 0 33px;}
@@ -43,10 +50,10 @@
 <body>
   <div class="app-splash" id="splash-screen">
     <main class="splash-card">
-      <div class="brand-mark" aria-hidden="true">A</div>
-      <p class="splash-kicker">MARKET INTELLIGENCE WORKSPACE</p>
-      <h1>alphasense</h1>
-      <p class="splash-sub">ทุกมุมมอง ก่อนตัดสินใจ<br>กำลังเปิดพื้นที่วิเคราะห์ของคุณ</p>
+      <img class="brand-mark" src="assets/brand/chart2plan-icon-192-v1.png" width="96" height="96" alt="โลโก้ Chart2Plan">
+      <p class="splash-kicker">FROM CHARTS TO TRADING PLANS</p>
+      <h1>Chart<span class="brand-number">2</span>Plan</h1>
+      <p class="splash-sub">วิเคราะห์กราฟ วางแผนเทรดด้วย AI<br>กำลังเปิดพื้นที่วิเคราะห์ของคุณ</p>
       <div class="status-row" role="status"><span class="spinner" aria-hidden="true"></span><span id="splashStatus">กำลังเปิดหน้าแอป…</span></div>
       <p class="splash-hint" id="splashHint">รอการยืนยันจากหน้าแอป<br>ไม่มีการเรียกวิเคราะห์ AI อัตโนมัติจากหน้านี้</p>
       <div class="fallback" id="fallbackPanel">
@@ -58,10 +65,10 @@
         <p>ยังไม่ได้รับการยืนยันว่าหน้าแอปพร้อม<br>ถ้าคุณเริ่มวิเคราะห์ไปแล้ว อย่าโหลดใหม่หรือส่งคำขอซ้ำ</p>
       </div>
     </main>
-    <div class="version">ALPHASENSE · APS TRADING 4.0</div>
+    <div class="version">CHART2PLAN · AI TRADING WORKSPACE</div>
   </div>
   <div id="app-shell">
-    <iframe id="app-container" title="AlphaSense Market Intelligence" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+    <iframe id="app-container" title="Chart2Plan วิเคราะห์กราฟและวางแผนเทรด" referrerpolicy="strict-origin-when-cross-origin"></iframe>
   </div>
   <noscript>โปรดเปิด JavaScript เพื่อใช้หน้าแอป</noscript>
   <script>
@@ -90,6 +97,7 @@
       clearTimeout(waitingTimer); waitingTimer=setTimeout(showFallback,15000);
       iframe.src=GAS_URL;
     }
+    // Keep the existing readiness protocol compatible with cached GAS pages.
     window.addEventListener('message',event=>{
       let host;
       try {host=new URL(event.origin).hostname;} catch(_) {return;}

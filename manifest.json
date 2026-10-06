@@ -1,7 +1,9 @@
 {
-  "name": "APS Trading",
-  "short_name": "APS Trading",
-  "description": "AlphaSense — Market Intelligence Workspace",
+  "id": "/AlphaSense-Analysis-Webapp/",
+  "name": "Chart2Plan",
+  "short_name": "Chart2Plan",
+  "description": "Chart2Plan — วิเคราะห์กราฟ วางแผนเทรดด้วย AI",
+  "lang": "th",
   "start_url": "/AlphaSense-Analysis-Webapp/",
   "scope": "/AlphaSense-Analysis-Webapp/",
   "display": "standalone",
@@ -12,16 +14,22 @@
   "categories": ["finance", "utilities"],
   "icons": [
     {
-      "src": "https://s21-kling.klingai.com/kimg/EMXN1y8qeAoGdXBsb2FkEg55bGFiLXN0dW50LXNncBpec2UvYWlfcG9ydGFsX3NncF9tbXVfaW1nMmltZ19haXdlYl92MTVfcG9ydHJhaXQvZjU4NDhmMzQtNjJiYi00OWNiLTljOGEtZmM1M2Y1OGU3OTUyX2ltYWdlLnBuZw:360x360.webp?x-kcdn-pid=112372",
+      "src": "assets/brand/chart2plan-icon-192-v1.png",
       "sizes": "192x192",
-      "type": "image/webp",
-      "purpose": "any maskable"
+      "type": "image/png",
+      "purpose": "any"
     },
     {
-      "src": "https://s21-kling.klingai.com/kimg/EMXN1y8qeAoGdXBsb2FkEg55bGFiLXN0dW50LXNncBpec2UvYWlfcG9ydGFsX3NncF9tbXVfaW1nMmltZ19haXdlYl92MTVfcG9ydHJhaXQvZjU4NDhmMzQtNjJiYi00OWNiLTljOGEtZmM1M2Y1OGU3OTUyX2ltYWdlLnBuZw:360x360.webp?x-kcdn-pid=112372",
+      "src": "assets/brand/chart2plan-icon-512-v1.png",
       "sizes": "512x512",
-      "type": "image/webp",
-      "purpose": "any maskable"
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/brand/chart2plan-maskable-512-v1.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
     }
   ]
 }
