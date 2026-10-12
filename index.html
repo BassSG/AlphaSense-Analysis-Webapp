@@ -74,12 +74,14 @@
   <script>
     // Existing deployment is updated in place; bookmarks and installed shortcuts stay valid.
     const GAS_URL = 'https://script.google.com/macros/s/AKfycbw10SEWBz2FEBJ9BLqACmCe8fY6wIihZ1pR-qaJre4F6kOFVJQGiaTgQlaAwL2LYhWRMw/exec';
+    // Cache marker for the verified Cloudflare MT5 feed release. No AI auto-run.
+    const GAS_RELEASE_URL = GAS_URL + '?release=20261012-v49';
     const iframe=document.getElementById('app-container');
     const splash=document.getElementById('splash-screen');
     const status=document.getElementById('splashStatus');
     const hint=document.getElementById('splashHint');
     const fallback=document.getElementById('fallbackPanel');
-    document.getElementById('openDirectBtn').href=GAS_URL;
+    document.getElementById('openDirectBtn').href=GAS_RELEASE_URL;
     let ready=false,waitingTimer=null;
     function hideSplash() {
       splash.style.opacity='0';
@@ -95,7 +97,7 @@
       ready=false; splash.hidden=false; splash.style.opacity='1'; fallback.style.display='none';
       status.textContent='กำลังเปิดหน้าแอป…'; hint.textContent='รอการยืนยันว่าหน้าแอปพร้อมแสดงผล';
       clearTimeout(waitingTimer); waitingTimer=setTimeout(showFallback,15000);
-      iframe.src=GAS_URL;
+      iframe.src=GAS_RELEASE_URL;
     }
     // Keep the existing readiness protocol compatible with cached GAS pages.
     window.addEventListener('message',event=>{
