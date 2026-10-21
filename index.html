@@ -9,42 +9,43 @@
   <meta property="og:title" content="Chart2Plan">
   <meta property="og:description" content="วิเคราะห์กราฟ วางแผนเทรดด้วย AI">
   <meta property="og:image" content="https://basssg.github.io/AlphaSense-Analysis-Webapp/assets/brand/chart2plan-icon-1024-v1.png">
-  <link rel="manifest" href="manifest.json?v=chart2plan-1">
+  <link rel="manifest" href="manifest.json?v=slate-blue-20261021">
   <link rel="icon" type="image/png" sizes="32x32" href="assets/brand/chart2plan-favicon-32-v1.png">
   <link rel="icon" type="image/png" sizes="64x64" href="assets/brand/chart2plan-favicon-64-v1.png">
   <link rel="apple-touch-icon" sizes="180x180" href="assets/brand/chart2plan-apple-touch-180-v1.png">
-  <meta name="theme-color" content="#0c1210">
+  <meta name="theme-color" content="#10151d">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="Chart2Plan">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <style>
     * {box-sizing:border-box;}
-    html,body {margin:0; width:100%; height:100%; background:#0c1210; color:#ecf4ef; font-family:system-ui,"Noto Sans Thai",sans-serif;}
+    html,body {margin:0; width:100%; height:100%; background:#10151d; color:#edf3fc; font-family:system-ui,"Noto Sans Thai",sans-serif;}
     button,a {font:inherit; -webkit-tap-highlight-color:transparent;}
-    button:focus-visible,a:focus-visible {outline:2px solid #94dfb9; outline-offset:4px;}
+    button:focus-visible,a:focus-visible {outline:2px solid #62b6ff; outline-offset:4px;}
     #app-shell {position:fixed; inset:0; padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);}
-    #app-container {display:block; width:100%; height:100%; border:0; background:#0c1210;}
-    .app-splash {position:fixed; inset:0; z-index:10; display:grid; place-items:center; padding:24px; background:#0c1210; transition:opacity .25s;}
-    .app-splash::before {content:''; position:absolute; inset:0; pointer-events:none; background:radial-gradient(ellipse at 50% 30%,#38674718,transparent 60%);}
+    #app-container {display:block; width:100%; height:100%; border:0; background:#10151d;}
+    .app-splash {position:fixed; inset:0; z-index:10; display:grid; place-items:center; padding:24px; background:#10151d; transition:opacity .25s;}
+    .app-splash::before {content:''; position:absolute; inset:0; pointer-events:none; background:radial-gradient(ellipse at 50% 30%,#399bff13,transparent 60%);}
     .splash-card {position:relative; width:min(100%,390px); text-align:center;}
-    .brand-mark {display:block; width:96px; height:96px; margin:0 auto 24px; border-radius:25px; border:1px solid #293a31; object-fit:contain; background:#0c1210;}
-    .brand-number {color:#ddbc80;}
-    .splash-kicker {color:#ddbc80; font-size:9px; letter-spacing:2.5px; margin:0 0 12px;}
+    .brand-mark {display:block; width:96px; height:96px; margin:0 auto 24px; border-radius:25px; border:1px solid #303e51; object-fit:contain; background:#10151d; filter:hue-rotate(65deg) saturate(1.15); box-shadow:0 14px 40px #03070d30;}
+    .brand-number {color:#62b6ff;}
+    .splash-kicker {color:#62b6ff; font-size:9px; letter-spacing:2.5px; margin:0 0 12px;}
     h1 {font-size:34px; font-weight:500; letter-spacing:-1.5px; margin:0 0 13px;}
-    .splash-sub {font-size:12px; line-height:1.9; color:#a6b9ae; margin:0 0 33px;}
-    .status-row {display:flex; align-items:center; justify-content:center; gap:10px; font-size:12px; color:#c5d6cc;}
-    .spinner {width:15px; height:15px; border:2px solid #293a31; border-top-color:#94dfb9; border-radius:50%; animation:spin .9s linear infinite;}
-    .splash-hint {font-size:10px; color:#8da398; line-height:1.9; min-height:40px; margin:13px 0 0;}
-    .fallback {display:none; padding-top:22px; margin-top:18px; border-top:1px solid #293a31;}
+    .splash-sub {font-size:12px; line-height:1.9; color:#a3b1c7; margin:0 0 33px;}
+    .status-row {display:flex; align-items:center; justify-content:center; gap:10px; font-size:12px; color:#b5ddff;}
+    .spinner {width:15px; height:15px; border:2px solid #303e51; border-top-color:#62b6ff; border-radius:50%; animation:spin .9s linear infinite;}
+    .splash-hint {font-size:10px; color:#92a4be; line-height:1.9; min-height:40px; margin:13px 0 0;}
+    .fallback {display:none; padding-top:22px; margin-top:18px; border-top:1px solid #303e51;}
     .fallback-actions {display:flex; justify-content:center; flex-wrap:wrap; gap:9px;}
-    .fallback button,.fallback a {min-height:42px; padding:11px 14px; border:1px solid #34493c; border-radius:9px; background:#18231e; color:#ecf4ef; text-decoration:none; cursor:pointer; font-size:11px;}
-    .fallback a {background:#9cddb9; color:#143023; border-color:#9cddb9;}
-    .fallback p {font-size:10px; line-height:1.9; color:#8da398;}
-    .version {position:fixed; bottom:max(20px,env(safe-area-inset-bottom)); left:0; right:0; text-align:center; font-size:9px; letter-spacing:1.4px; color:#789082; pointer-events:none;}
+    .fallback button,.fallback a {min-height:42px; padding:11px 14px; border:1px solid #303e51; border-radius:9px; background:#1d2838; color:#edf3fc; text-decoration:none; cursor:pointer; font-size:11px;}
+    .fallback a {background:linear-gradient(120deg,#82d5ff,#418ff5); color:#081c31; border-color:#62b6ff;}
+    .fallback button:hover,.fallback a:hover {border-color:#62b6ff;}
+    .fallback p {font-size:10px; line-height:1.9; color:#92a4be;}
+    .version {position:fixed; bottom:max(20px,env(safe-area-inset-bottom)); left:0; right:0; text-align:center; font-size:9px; letter-spacing:1.4px; color:#92a4be; pointer-events:none;}
     .app-splash[hidden] {display:none;}
     @keyframes spin {to {transform:rotate(360deg);}}
-    @media(prefers-reduced-motion:reduce) {.spinner {animation:none; border-color:#94dfb9;} .app-splash {transition:none;}}
+    @media(prefers-reduced-motion:reduce) {.spinner {animation:none; border-color:#62b6ff;} .app-splash {transition:none;}}
   </style>
 </head>
 <body>
@@ -74,8 +75,8 @@
   <script>
     // Existing deployment is updated in place; bookmarks and installed shortcuts stay valid.
     const GAS_URL = 'https://script.google.com/macros/s/AKfycbw10SEWBz2FEBJ9BLqACmCe8fY6wIihZ1pR-qaJre4F6kOFVJQGiaTgQlaAwL2LYhWRMw/exec';
-    // Cache marker for the verified Cloudflare MT5 feed release. No AI auto-run.
-    const GAS_RELEASE_URL = GAS_URL + '?release=20261012-v49';
+    // Presentation-only release marker. The existing GAS endpoint and readiness protocol stay unchanged.
+    const GAS_RELEASE_URL = GAS_URL + '?release=20261021-slate-blue';
     const iframe=document.getElementById('app-container');
     const splash=document.getElementById('splash-screen');
     const status=document.getElementById('splashStatus');
